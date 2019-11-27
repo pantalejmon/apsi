@@ -14,7 +14,9 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "start": "tsc && node ./dist/index.js",
+    "start": "node dist/index.js",
+    "build": "npm run clean && tsc",
+    "postinstall": "npm run build",
     "dev": "nodemon -e ts  --exec \"npm run start\"",
     "watch": "tsc --watch",
     "test": "mocha --opts tests/mocha.opts",
