@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser"
-import { Const } from "../config/constants";
+import { Const } from "../config/Constants";
 import "reflect-metadata";
 import DatabaseController from "../database/DatabaseController";
 
@@ -18,6 +18,4 @@ export default class Server {
         this.app.listen(Const.getPort(), () => console.log(`Serwer started at port: ${Const.getPort()}`));
         this.db = new DatabaseController();
     }
-
-
 }

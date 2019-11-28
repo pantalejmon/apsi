@@ -1,6 +1,6 @@
-import Server from "./api/server";
+import Server from "./api/Server";
 import fs from "fs"
-import { Const } from "./config/constants";
+import { Const } from "./config/Constants";
 /**
  * Uruchomienie serwera
  */

@@ -23,8 +23,6 @@ export default class DatabaseController {
         })
             .then((connection) => {
                 this.connection = connection
-                const test: User = new User();
-                this.connection.manager.save(test);
             })
             .catch((error) => console.log(error));
     }
