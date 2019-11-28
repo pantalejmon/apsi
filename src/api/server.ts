@@ -12,6 +12,8 @@ export default class Server {
         this.app.get('/', function (req, res) {
             res.redirect('/index');
         });
-        this.app.listen(Const.getPort(), () => console.log(`Serwer started`))
+        this.app.listen(Const.getPort(), () => console.log(`Serwer started at port: ${Const.getPort()}`));
     }
+
+
 }
