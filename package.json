@@ -18,7 +18,7 @@
     "build": "npm run clean && tsc",
     "postinstall": "npm run build",
     "go": "tsc && node dist/index.js",
-    "dev": "nodemon -e ts  --exec \"npm run go\"",
+    "dev": "nodemon",
     "watch": "tsc --watch",
     "test": "mocha --opts tests/mocha.opts",
     "test-watch": "mocha --opts tests/mocha.opts --watch",
@@ -44,5 +44,18 @@
     "nodemon": "^1.19.1",
     "pg": "^7.14.0",
     "typeorm": "^0.2.20"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm run go",
+    "ext": "ts"
   }
 }

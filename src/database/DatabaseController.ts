@@ -19,7 +19,7 @@ export default class DatabaseController {
                 ssl: true
             },
             synchronize: true,
-            logging: true
+            logging: false
         })
             .then((connection) => {
                 this.connection = connection
