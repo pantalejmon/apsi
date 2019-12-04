@@ -8,12 +8,10 @@ export default class UserController {
         this.dbController = db;
     }
 
-    public async loginPatient(req: express.Request, res: express.Response): Promise<void> {
+    public async login(req: express.Request, res: express.Response): Promise<void> {
         // TODO: Add redirection after success login
     }
+    public async signUp(req: express.Request, res: express.Response): Promise<void> {
 
-    public async loginDoctor(req: express.Request, res: express.Response): Promise<void> {
-        // TODO: Add redirection after success login
     }
-
 }

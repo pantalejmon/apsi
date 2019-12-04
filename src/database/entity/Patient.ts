@@ -1,9 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { User } from './User';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ChildEntity } from 'typeorm';
+import User from './User';
 import { Appointment } from './Appointment';
 
 @Entity()
-export class Patient extends User {
+export default class Patient extends User {
     // citizenId == PESEL
     @Column({ length: 11 })
     public citizenId: string = '';

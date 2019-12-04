@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, TableInheritance } from 'typeorm';
 import { Appointment } from './Appointment';
 
-@Entity()
-export class User {
+
+export default abstract class User {
     @PrimaryGeneratedColumn()
     public id: number;
 

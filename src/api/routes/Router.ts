@@ -20,13 +20,6 @@ export default class Router {
     }
 
     private createApi() {
-        /**
-         * Logowanie do panelu lekarza
-         */
-        this.router.post(this.api + "login/doctor/", this.authController.checkDoctor, this.userController.loginDoctor);
-        /**
-         * Logowanie do panelu pacjenta
-         */
-        this.router.post(this.api + "login/patient", this.authController.checkPatient, this.userController.loginPatient);
+        this.router.post(this.api + "login/", this.authController.check, this.userController.login);
     }
 }
