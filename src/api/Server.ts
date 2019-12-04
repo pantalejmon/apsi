@@ -3,6 +3,11 @@ import bodyParser from "body-parser"
 import { Const } from "../config/Constants";
 import "reflect-metadata";
 import DatabaseController from "../database/DatabaseController";
+import { getConnection } from 'typeorm';
+import { TypeormStore } from 'typeorm-store';
+import * as session from 'express-session';
+import Session from "../database/entity/Session"
+
 
 export default class Server {
     private app: express.Application;
@@ -12,6 +17,15 @@ export default class Server {
         this.db = new DatabaseController();
     }
 
+    private sessionInit(): void {
+        const repository: any = getConnection().getRepository(Session);
+        this.app.use(session({
+            secret: 'secret',
+            resave: false,
+            saveUninitialized: false,
+            store: new TypeormStore({ repository })
+        }))
+    }
     /**
      * Konfiguracja Api
      */
