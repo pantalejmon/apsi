@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { User } from './User';
+import { Appointment } from './Appointment';
 
 @Entity()
 export class Doctor extends User {
@@ -7,4 +8,6 @@ export class Doctor extends User {
     @Column()
     public specialization: string = '';
 
+    @OneToMany(type => Appointment, appointments => appointments.doctor)
+    public appointments: Appointment[];
 }

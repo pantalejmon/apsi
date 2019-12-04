@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { User } from './User';
+import { Appointment } from './Appointment';
 
 @Entity()
 export class Patient extends User {
@@ -9,4 +10,7 @@ export class Patient extends User {
 
     @Column({ type: "timestamp without time zone" })
     public dateOfBirth: number;
+
+    @OneToMany(type => Appointment, appointments => appointments.patient)
+    public appointments: Appointment[];
 }

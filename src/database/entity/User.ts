@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Appointment } from './Appointment';
 
 @Entity()
@@ -17,10 +17,6 @@ export class User {
 
     @Column()
     public phoneNumber: string = '';
-
-    // ToDo: update column
-    @Column()
-    public appointments: Appointment[];
 
     @Column()
     public hashedPassword: string = '';
