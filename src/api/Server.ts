@@ -5,28 +5,29 @@ import "reflect-metadata";
 import DatabaseController from "../database/DatabaseController";
 import { getConnection } from 'typeorm';
 import { TypeormStore } from 'typeorm-store';
-import * as session from 'express-session';
+import session from 'express-session';
 import Session from "../database/entity/Session"
-import UserApi from "./routes/UserApi";
+import UserApi from "./routes/controllers/UserController";
 import helmet from 'helmet';
+import Router from "./routes/Router";
 
 
 export default class Server {
     private app: express.Application;
-    private userApi: UserApi;
+    private router: Router
     private dbController: DatabaseController;
 
     /**
      * Uruchomienie bazy danych
      */
     private databaseInit(): void {
-        this.dbController = new DatabaseController(this.sessionInit());
+        this.dbController = new DatabaseController(this);
     }
 
     /**
      * Konfiguracja sesji
      */
-    private sessionInit(): void {
+    public sessionInit(): void {
         const repository: any = getConnection().getRepository(Session);
         this.app.use(session({
             secret: 'secret',
@@ -40,11 +41,11 @@ export default class Server {
      * Konfiguracja Api
      */
     private apiInit(): void {
-        this.app = express();
+
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(helmet());
-        this.userApi = new UserApi(this.app, this.dbController)
+        this.router = new Router(this.app, this.dbController)
     }
 
     /**
@@ -65,6 +66,7 @@ export default class Server {
     }
 
     constructor() {
+        this.app = express();
         this.databaseInit();
         this.apiInit();
         this.publicInit();
