@@ -6,3 +6,4 @@ npm-debug.log
 dist
 src/config/Credentials.ts
 ormconfig.json
+.vscode/tasks.json

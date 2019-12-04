@@ -1,6 +1,8 @@
 import { createConnection, Connection } from 'typeorm';
 import 'reflect-metadata';
 import { User } from './entity/User';
+import { Patient } from './entity/Patient';
+import { Doctor } from './entity/Doctor';
 import Credentials from '../config/Credentials';
 export default class DatabaseController {
     private connection: Connection
