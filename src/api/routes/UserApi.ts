@@ -14,6 +14,7 @@ export default class UserApi {
         this.router = app;
         this.dbController = db;
         this.authController = new AuthenticationController(this.dbController);
+        this.createApi();
     }
 
     private createApi() {
@@ -21,16 +22,14 @@ export default class UserApi {
          * Logowanie do panelu lekarza
          */
         this.router.post(this.api + "login/doctor/", this.authController.checkDoctor, (req: express.Request, res: express.Response, next: express.NextFunction) => {
-            let email = req.body.email;
-            let pass = req.body.pass;
+            // TODO: Add redirection after success login
 
         })
         /**
          * Logowanie do panelu pacjenta
          */
         this.router.post(this.api + "login/patient", this.authController.checkPatient, (req: express.Request, res: express.Response, next: express.NextFunction) => {
-            let email = req.body.email;
-            let pass = req.body.pass;
+            // TODO: Add redirection after success login
         })
     }
 }

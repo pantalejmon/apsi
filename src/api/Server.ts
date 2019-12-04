@@ -7,16 +7,25 @@ import { getConnection } from 'typeorm';
 import { TypeormStore } from 'typeorm-store';
 import * as session from 'express-session';
 import Session from "../database/entity/Session"
+import UserApi from "./routes/UserApi";
+import helmet from 'helmet';
 
 
 export default class Server {
     private app: express.Application;
-    private db: DatabaseController;
+    private userApi: UserApi;
+    private dbController: DatabaseController;
 
+    /**
+     * Uruchomienie bazy danych
+     */
     private databaseInit(): void {
-        this.db = new DatabaseController();
+        this.dbController = new DatabaseController(this.sessionInit());
     }
 
+    /**
+     * Konfiguracja sesji
+     */
     private sessionInit(): void {
         const repository: any = getConnection().getRepository(Session);
         this.app.use(session({
@@ -26,6 +35,7 @@ export default class Server {
             store: new TypeormStore({ repository })
         }))
     }
+
     /**
      * Konfiguracja Api
      */
@@ -33,6 +43,8 @@ export default class Server {
         this.app = express();
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(helmet());
+        this.userApi = new UserApi(this.app, this.dbController)
     }
 
     /**
@@ -49,14 +61,13 @@ export default class Server {
      * Uruchomienie serwera
      */
     private serverStart(): void {
-        this.app.listen(Const.getPort(), () => console.log(`Serwer started`))
+        this.app.listen(Const.getPort(), () => console.log(`Serwer started on port: ` + Const.getPort()))
     }
 
     constructor() {
+        this.databaseInit();
         this.apiInit();
         this.publicInit();
         this.serverStart();
-        this.db = new DatabaseController();
     }
-
 }

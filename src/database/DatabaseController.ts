@@ -3,8 +3,10 @@ import 'reflect-metadata';
 import { User } from './entity/User';
 import Credentials from '../config/Credentials';
 export default class DatabaseController {
+
     private connection: Connection
-    constructor() {
+    constructor(next: any) {
+
         createConnection({
             type: "postgres",
             host: Credentials.dbHost,
@@ -13,7 +15,7 @@ export default class DatabaseController {
             password: Credentials.dbPassword,
             database: Credentials.dbname,
             entities: [
-                "./dist/database/**/*.js"
+                "./dist/database/entity/*.js"
             ],
             extra: {
                 ssl: true
@@ -22,7 +24,8 @@ export default class DatabaseController {
             logging: false
         })
             .then((connection) => {
-                this.connection = connection
+                this.connection = connection;
+                next();
             })
             .catch((error) => console.log(error));
     }
