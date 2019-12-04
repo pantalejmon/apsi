@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Appointment } from './Appointment';
 
 @Entity()
 export class User {
@@ -6,10 +7,20 @@ export class User {
     public id: number;
 
     @Column()
-    public name: string = '';
+    public firstName: string = '';
+
+    @Column()
+    public lastName: string = '';
 
     @Column()
     public mail: string = '';
+
+    @Column()
+    public phoneNumber: string = '';
+
+    // ToDo: update column
+    @Column()
+    public appointments: Appointment[];
 
     @Column()
     public hashedPassword: string = '';
