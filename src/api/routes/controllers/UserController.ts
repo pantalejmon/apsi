@@ -19,13 +19,11 @@ export default class UserController {
     public async staticDashboard(req: Request, res: Response): Promise<void> {
         // tslint:disable-next-line: triple-equals
         if (req.session.role == Role.PATIENT) {
-            express.static("../../../private/patient", { index: false, extensions: ['html'] })
+            req.url = `/patient/${req.url}`;
         }
         // tslint:disable-next-line: triple-equals
         else if (req.session.role == Role.DOCTOR) {
-            express.static("../../../private/doctor", { index: false, extensions: ['html'] })
-
+            req.url = `/doctor/${req.url}`;
         }
-
     }
 }

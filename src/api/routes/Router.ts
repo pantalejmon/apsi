@@ -30,6 +30,8 @@ export default class Router {
          * Restricted htmls
          */
 
-        this.router.use("/user", this.permController.verifyUser, this.userController.staticDashboard);
+        this.router.use("/user", this.permController.verifyUser, this.userController.staticDashboard); // Tutaj przekierowujemy na patient albo doctor
+        this.router.use("/patient", this.permController.verifyUser, express.static("../../../private/patient", { index: false, extensions: ['html'] }));
+        this.router.use("/doctor", this.permController.verifyUser, express.static("../../../private/doctor", { index: false, extensions: ['html'] }));
     }
 }
