@@ -1,5 +1,7 @@
-import express from 'express';
+import { Request, Response, NextFunction } from 'express';
 import DatabaseController from '../../../database/DatabaseController';
+import { Role } from '../../../database/util/Enums';
+import express from "express"
 
 
 export default class UserController {
@@ -8,10 +10,22 @@ export default class UserController {
         this.dbController = db;
     }
 
-    public async login(req: express.Request, res: express.Response): Promise<void> {
-        // TODO: Add redirection after success login
+    public async login(req: Request, res: Response): Promise<void> {
+        res.status(200).send({ token: req.session.token });
     }
-    public async signUp(req: express.Request, res: express.Response): Promise<void> {
+    public async signUp(req: Request, res: Response): Promise<void> {
+
+    }
+    public async staticDashboard(req: Request, res: Response): Promise<void> {
+        // tslint:disable-next-line: triple-equals
+        if (req.session.role == Role.PATIENT) {
+            express.static("../../../private/patient", { index: false, extensions: ['html'] })
+        }
+        // tslint:disable-next-line: triple-equals
+        else if (req.session.role == Role.DOCTOR) {
+            express.static("../../../private/doctor", { index: false, extensions: ['html'] })
+
+        }
 
     }
 }

@@ -3,13 +3,14 @@ import { NextFunction, Request, Response } from "express";
 import User from "../../../database/entity/User";
 import bcrypt from 'bcryptjs';
 import { Role } from "../../../database/util/Enums";
+import * as jwt from "jsonwebtoken"
 
 export default class AuthenticationController {
     private dbController: DatabaseController;
     constructor(db: DatabaseController) {
         this.dbController = db;
     }
-    public async check(req: Request, res: Response, next: NextFunction) {
+    public async checkLoginAndPass(req: Request, res: Response, next: NextFunction) {
         let email: string = req.body.email;
         let pass: string = req.body.pass;
         try {
@@ -22,18 +23,27 @@ export default class AuthenticationController {
                 if (status) {
                     req.session.role = await this.checkRole(user);
                     req.session.mail = user.mail
+                    req.session.token = jwt.sign({ mail: user.mail, role: req.session.role }, "tajnehaslo(pozniej_bedzie_z_credentiali)", {
+                        expiresIn: 1000 * 60 * 30
+                    })
                     next();
                 }
                 else {
                     // Temporary answer:
+                    req.session.destroy((err) => console.log(err));
                     res.send("Złe hasło")
                 }
             }
         }
         catch (e) {
             console.log(e);
+            req.session.destroy((err) => console.log(err));
             res.send("Błąd serwera")
         }
+    }
+
+    public async checkToken(req: Request, res: Response, next: NextFunction) {
+
     }
 
     private async checkRole(user: User): Promise<Role> {
