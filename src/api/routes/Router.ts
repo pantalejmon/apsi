@@ -18,6 +18,7 @@ export default class Router {
         this.dbController = db;
         this.authController = new AuthenticationController(this.dbController);
         this.userController = new UserController(this.dbController);
+        this.permController = new AuthorisationController(this.dbController);
         this.createApi();
     }
 
