@@ -24,4 +24,6 @@ export default abstract class User {
     @Column()
     public isActive: boolean = false;
 
+    @Column()
+    public registrationToken: string = '';
 }
