@@ -2,6 +2,7 @@ import DatabaseController from "../../../database/DatabaseController";
 import { NextFunction, Request, Response } from "express";
 import User from "../../../database/entity/User";
 import bcrypt from 'bcryptjs';
+import { Role } from "../../../database/util/Enums";
 
 export default class AuthenticationController {
     private dbController: DatabaseController;
@@ -19,7 +20,8 @@ export default class AuthenticationController {
             if (user) {
                 let status = await bcrypt.compare(pass, user.hashedPassword);
                 if (status) {
-                    // Success 
+                    req.session.role = await this.checkRole(user);
+                    req.session.mail = user.mail
                     next();
                 }
                 else {
@@ -32,5 +34,11 @@ export default class AuthenticationController {
             console.log(e);
             res.send("Błąd serwera")
         }
+    }
+
+    private async checkRole(user: User): Promise<Role> {
+        if (await this.dbController.getPatientRepository().findOne({ where: { mail: user.mail } })) return Role.PATIENT;
+        else if (await this.dbController.getDoctorRepository().findOne({ where: { mail: user.mail } })) return Role.DOCTOR
+        else return Role.UNKNOWN;
     }
 }
