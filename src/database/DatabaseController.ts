@@ -30,7 +30,6 @@ export default class DatabaseController {
             this.connection = connection;
             owner.sessionInit();
             owner.apiInit();
-            owner.publicInit();
             owner.serverStart();
             console.log("Uruchomiono mechanizm sesji");
             this.patientRepository = getRepository(Patient);

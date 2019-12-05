@@ -50,27 +50,14 @@ export default class Server {
     }
 
     /**
-     * Konfiguracja statycznego hostingu
-     */
-    public publicInit(): void {
-        this.app.use(express.static("./src/public", { index: false, extensions: ['html'] }));
-        this.app.get('/', function (req, res) {
-            res.redirect('/index');
-        });
-    }
-
-    /**
      * Uruchomienie serwera
      */
     public serverStart(): void {
         this.app.listen(Const.getPort(), () => console.log(`Serwer started on port: ` + Const.getPort()))
     }
 
-
-
     constructor() {
         this.app = express();
         this.databaseInit();
-
     }
 }
