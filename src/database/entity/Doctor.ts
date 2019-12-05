@@ -2,6 +2,9 @@ import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ChildEntity } from '
 import User from './User';
 import { Appointment } from './Appointment';
 
+/**
+ * Struktura danych odpowiadająca lekarzowi
+ */
 @Entity()
 export default class Doctor extends User {
     // ToDo: decide between enum or table in db

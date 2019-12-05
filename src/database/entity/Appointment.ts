@@ -1,14 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import Doctor from './Doctor';
 import Patient from './Patient';
-import User from './User';
+import { AppointmentStatus } from '../util/Enums';
 
-export enum AppointmentStatus {
-    PENDING = 'pending',
-    CONFIRMED = 'confirmed',
-    FINISHED = 'finished'
-}
-
+/**
+ * Struktura danych odpowiadająca wizycie lekarskiej 
+ */
 @Entity()
 export class Appointment {
     @PrimaryGeneratedColumn()
@@ -19,9 +16,6 @@ export class Appointment {
 
     @Column()
     public duration: number;
-
-
-
 
     // ToDo: update column
     @ManyToOne(type => Patient, patient => patient.appointments)
@@ -38,5 +32,4 @@ export class Appointment {
         default: AppointmentStatus.PENDING
     })
     public status: AppointmentStatus;
-
 }

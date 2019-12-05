@@ -29,6 +29,10 @@ export default class DatabaseController {
         }).then((connection) => {
             this.connection = connection;
             owner.sessionInit();
+            owner.apiInit();
+            owner.publicInit();
+            owner.serverStart();
+            console.log("Uruchomiono mechanizm sesji");
             this.patientRepository = getRepository(Patient);
             this.doctorRepository = getRepository(Doctor);
         }).catch((error) => {

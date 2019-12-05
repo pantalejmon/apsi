@@ -11,7 +11,9 @@ import UserApi from "./routes/controllers/UserController";
 import helmet from 'helmet';
 import Router from "./routes/Router";
 
-
+/**
+ * Klasa główna serwera aplikacji
+ */
 export default class Server {
     private app: express.Application;
     private router: Router
@@ -40,8 +42,7 @@ export default class Server {
     /**
      * Konfiguracja Api
      */
-    private apiInit(): void {
-
+    public apiInit(): void {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(helmet());
@@ -51,7 +52,7 @@ export default class Server {
     /**
      * Konfiguracja statycznego hostingu
      */
-    private publicInit(): void {
+    public publicInit(): void {
         this.app.use(express.static("./src/public", { index: false, extensions: ['html'] }));
         this.app.get('/', function (req, res) {
             res.redirect('/index');
@@ -61,15 +62,15 @@ export default class Server {
     /**
      * Uruchomienie serwera
      */
-    private serverStart(): void {
+    public serverStart(): void {
         this.app.listen(Const.getPort(), () => console.log(`Serwer started on port: ` + Const.getPort()))
     }
+
+
 
     constructor() {
         this.app = express();
         this.databaseInit();
-        this.apiInit();
-        this.publicInit();
-        this.serverStart();
+
     }
 }

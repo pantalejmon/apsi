@@ -2,6 +2,9 @@ import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ChildEntity } from '
 import User from './User';
 import { Appointment } from './Appointment';
 
+/**
+ * Struktura danych odpowiadająca pacjentowi
+ */
 @Entity()
 export default class Patient extends User {
     // citizenId == PESEL

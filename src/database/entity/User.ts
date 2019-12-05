@@ -1,7 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany, TableInheritance } from 'typeorm';
 import { Appointment } from './Appointment';
 
-
+/**
+ * Abstrakcyjna klasa bazowa będąca modelem użytkownika aplikacji
+ */
 export default abstract class User {
     @PrimaryGeneratedColumn()
     public id: number;
