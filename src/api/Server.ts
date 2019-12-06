@@ -42,11 +42,12 @@ export default class Server {
     /**
      * Konfiguracja Api
      */
-    public apiInit(): void {
+    public apiInit(db: DatabaseController): void {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(helmet());
-        this.router = new Router(this.app, this.dbController)
+        this.dbController = db;
+        this.router = new Router(this.app, db);
     }
 
     /**
