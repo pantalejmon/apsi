@@ -17,10 +17,12 @@ export default class Router {
         this.api = Const.api;
         this.router = app;
         this.dbController = db;
+
         this.authController = new AuthenticationController(this.dbController);
         this.userController = new UserController(this.dbController);
         this.permController = new AuthorisationController(this.dbController);
         this.createApi();
+
     }
 
     private createApi() {
@@ -28,7 +30,7 @@ export default class Router {
          * Logika
          */
         this.router.post(this.api + "login", this.authController.checkLoginAndPass, this.userController.login);
-        this.router.post(this.api + "register", this.userController.signUp);
+        this.router.post(this.api + "register", this.userController.savePatient);
 
         /**
          * Wystawienie publicznych htmli
