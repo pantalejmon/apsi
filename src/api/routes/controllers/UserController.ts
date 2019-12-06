@@ -18,13 +18,13 @@ export default class UserController {
     }
     public async signUp(req: Request, res: Response): Promise<void> {
         // ToDo: Check if everything in res.body is present/valid
-        if (!req.body.role || !req.body.firstName || !req.body.lastName || !req.body.mail || 
+        if (!req.body.role || !req.body.firstName || !req.body.lastName || !req.body.mail ||
             !req.body.phoneNumber || !req.body.password) {
             // ToDo: extract common logic
+            // tslint:disable-next-line: triple-equals
             if (req.body.role == Role.PATIENT) {
                 if (!req.body.citizenId || req.body.dateOfBirth) {
-                    // Invalid data
-                    
+                    res.send({ message: "Invalid citizenId or date of birth" });
                     return;
                 }
 
@@ -33,16 +33,14 @@ export default class UserController {
                 newPatient.lastName = req.body.lastName;
                 newPatient.mail = req.body.mail;
                 newPatient.phoneNumber = req.body.phoneNumber;
-                newPatient.hashedPassword = this.hashPasswordSync(req.body.password);
+                newPatient.hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
                 newPatient.citizenId = req.body.citizenId;
                 newPatient.dateOfBirth = req.body.dateOfBirth;
                 this.savePatient(newPatient);
-
-                res.send(newPatient);
+            // tslint:disable-next-line: triple-equals
             } else if (req.body.role == Role.DOCTOR) {
                 if (!req.body.specialization) {
-                    // Invalid data
-                    
+                    res.send({ message: "Invalid specialization" });
                     return;
                 }
 
@@ -51,15 +49,11 @@ export default class UserController {
                 newDoctor.lastName = req.body.lastName;
                 newDoctor.mail = req.body.mail;
                 newDoctor.phoneNumber = req.body.phoneNumber;
-                newDoctor.hashedPassword = this.hashPasswordSync(req.body.password);
+                newDoctor.hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
                 newDoctor.specialization = req.body.specialization;
                 this.saveDoctor(newDoctor);
-
-                res.send(newDoctor);
-
             } else {
-                // Invalid data
-                
+                res.send({ message: "Invalid data" });
             }
         }
     }
@@ -121,37 +115,6 @@ export default class UserController {
         } else res.send(doctor);
     }
 
-    // public async savePatient(req: express.Request, res: express.Response) {
-    //     const repository = this.dbController.getPatientRepository();
-    //     const newPatient = new Patient();
-    //     newPatient.firstName = req.body.firstName;
-    //     newPatient.lastName = req.body.lastName;
-    //     newPatient.mail = req.body.mail;
-    //     newPatient.phoneNumber = req.body.phoneNumber;
-    //     newPatient.hashedPassword = this.hashPasswordSync(req.body.password);
-    //     newPatient.citizenId = req.body.citizenId;
-    //     newPatient.dateOfBirth = req.body.dateOfBirth;
-
-    //     await repository.save(newPatient);
-
-    //     res.send(newPatient);
-    // }
-
-    // public async saveDoctor(req: express.Request, res: express.Response) {
-    //     const repository = this.dbController.getDoctorRepository();
-    //     const newDoctor = new Doctor();
-    //     newDoctor.firstName = req.body.firstName;
-    //     newDoctor.lastName = req.body.lastName;
-    //     newDoctor.mail = req.body.mail;
-    //     newDoctor.phoneNumber = req.body.phoneNumber;
-    //     newDoctor.hashedPassword = this.hashPasswordSync(req.body.password);
-    //     newDoctor.specialization = req.body.specialization;
-
-    //     await repository.save(newDoctor);
-
-    //     res.send(newDoctor);
-    // }
-
     public async deletePatientByEmail(req: express.Request, res: express.Response) {
         const repository = this.dbController.getPatientRepository();
         const patientToDelete = await repository.findOne({ mail: req.body.mail });
@@ -166,12 +129,6 @@ export default class UserController {
         await repository.remove(doctorToDelete);
 
         res.send(doctorToDelete);
-    }
-
-    private hashPasswordSync(passwordToHash: string) {
-        const salt = bcrypt.genSaltSync(10);
-        const hash: string = bcrypt.hashSync(passwordToHash, salt);
-        return hash;
     }
 }
 
