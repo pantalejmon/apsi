@@ -16,45 +16,50 @@ export default class UserController {
     public async login(req: Request, res: Response): Promise<void> {
         res.status(200).send({ token: req.session.token });
     }
+
     public async signUp(req: Request, res: Response): Promise<void> {
         // ToDo: Check if everything in res.body is present/valid
-        if (!req.body.role || !req.body.firstName || !req.body.lastName || !req.body.mail ||
-            !req.body.phoneNumber || !req.body.password) {
-            // ToDo: extract common logic
-            // tslint:disable-next-line: triple-equals
-            if (req.body.role == Role.PATIENT) {
-                if (!req.body.citizenId || req.body.dateOfBirth) {
-                    res.send({ message: "Invalid citizenId or date of birth" });
-                    return;
-                }
-
-                const newPatient = new Patient();
-                newPatient.firstName = req.body.firstName;
-                newPatient.lastName = req.body.lastName;
-                newPatient.mail = req.body.mail;
-                newPatient.phoneNumber = req.body.phoneNumber;
-                newPatient.hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
-                newPatient.citizenId = req.body.citizenId;
-                newPatient.dateOfBirth = req.body.dateOfBirth;
-                this.savePatient(newPatient);
-            // tslint:disable-next-line: triple-equals
-            } else if (req.body.role == Role.DOCTOR) {
-                if (!req.body.specialization) {
-                    res.send({ message: "Invalid specialization" });
-                    return;
-                }
-
-                const newDoctor = new Doctor();
-                newDoctor.firstName = req.body.firstName;
-                newDoctor.lastName = req.body.lastName;
-                newDoctor.mail = req.body.mail;
-                newDoctor.phoneNumber = req.body.phoneNumber;
-                newDoctor.hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
-                newDoctor.specialization = req.body.specialization;
-                this.saveDoctor(newDoctor);
-            } else {
-                res.send({ message: "Invalid data" });
+        if (!req.body.role
+            || !req.body.firstName
+            || !req.body.lastName
+            || !req.body.mail
+            || !req.body.phoneNumber
+            || !req.body.password) {
+            res.send({ message: "Invalid data" });
+            return;
+        }
+        // ToDo: extract common logic
+        // tslint:disable-next-line: triple-equals
+        if (req.body.role == Role.PATIENT) {
+            if (!req.body.citizenId || req.body.dateOfBirth) {
+                res.send({ message: "Invalid citizenId or date of birth" });
+                return;
             }
+            const newPatient = new Patient();
+            newPatient.firstName = req.body.firstName;
+            newPatient.lastName = req.body.lastName;
+            newPatient.mail = req.body.mail;
+            newPatient.phoneNumber = req.body.phoneNumber;
+            newPatient.hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
+            newPatient.citizenId = req.body.citizenId;
+            newPatient.dateOfBirth = req.body.dateOfBirth;
+            this.savePatient(newPatient);
+            // tslint:disable-next-line: triple-equals
+        } else if (req.body.role == Role.DOCTOR) {
+            if (!req.body.specialization) {
+                res.send({ message: "Invalid specialization" });
+                return;
+            }
+            const newDoctor = new Doctor();
+            newDoctor.firstName = req.body.firstName;
+            newDoctor.lastName = req.body.lastName;
+            newDoctor.mail = req.body.mail;
+            newDoctor.phoneNumber = req.body.phoneNumber;
+            newDoctor.hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
+            newDoctor.specialization = req.body.specialization;
+            this.saveDoctor(newDoctor);
+        } else {
+            res.send({ message: "Invalid data" });
         }
     }
 
@@ -127,7 +132,6 @@ export default class UserController {
         const repository = this.dbController.getDoctorRepository();
         const doctorToDelete = await repository.findOne({ mail: req.body.mail });
         await repository.remove(doctorToDelete);
-
         res.send(doctorToDelete);
     }
 }
