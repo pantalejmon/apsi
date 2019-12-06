@@ -2,8 +2,9 @@ import DatabaseController from "../../../database/DatabaseController";
 import { NextFunction, Request, Response } from "express";
 import User from "../../../database/entity/User";
 import bcrypt from 'bcryptjs';
-import { Role } from "../../../database/util/Enums";
+import { Role, Errors } from "../../../database/util/Enums";
 import * as jwt from "jsonwebtoken"
+import httpstatus from "http-status-codes"
 
 export default class AuthenticationController {
     private dbController: DatabaseController;
@@ -31,7 +32,7 @@ export default class AuthenticationController {
                 else {
                     // Temporary answer:
                     req.session.destroy((err) => console.log(err));
-                    res.send("Złe hasło")
+                    res.status(httpstatus.UNAUTHORIZED).send({ error: Errors.WRONG_CREDENTIALS })
                 }
             }
         }
