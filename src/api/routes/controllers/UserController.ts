@@ -11,6 +11,17 @@ export default class UserController {
     private dbController: DatabaseController;
     constructor(db: DatabaseController) {
         this.dbController = db;
+        this.login = this.login.bind(this);
+        this.signUp = this.signUp.bind(this);
+        this.savePatient
+        this.saveDoctor = this.saveDoctor.bind(this);
+        this.staticDashboard = this.staticDashboard.bind(this);
+        this.getAllPatients = this.getAllPatients.bind(this);
+        this.getAllDoctors = this.getAllDoctors.bind(this);
+        this.getPatientByEmail = this.getPatientByEmail.bind(this);
+        this.getDoctorByEmail = this.getDoctorByEmail.bind(this);
+        this.deletePatientByEmail = this.deletePatientByEmail.bind(this);
+        this.deleteDoctorByEmail = this.deleteDoctorByEmail.bind(this);
     }
 
     public async login(req: Request, res: Response): Promise<void> {

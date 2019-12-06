@@ -30,7 +30,7 @@ export default class Router {
          * Logika
          */
         this.router.post(this.api + "login", this.authController.checkLoginAndPass, this.userController.login);
-        this.router.post(this.api + "register", this.userController.savePatient);
+        this.router.post(this.api + "register", this.userController.signUp);
 
         /**
          * Wystawienie publicznych htmli

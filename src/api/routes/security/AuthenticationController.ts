@@ -10,7 +10,10 @@ export default class AuthenticationController {
     private dbController: DatabaseController;
     constructor(db: DatabaseController) {
         this.dbController = db;
+        this.checkLoginAndPass = this.checkLoginAndPass.bind(this);
+        this.checkRole = this.checkRole.bind(this);
     }
+
     public async checkLoginAndPass(req: Request, res: Response, next: NextFunction) {
         let email: string = req.body.email;
         let pass: string = req.body.pass;
