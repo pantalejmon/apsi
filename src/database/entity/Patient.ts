@@ -14,6 +14,8 @@ export default class Patient extends User {
     @Column({ type: "timestamp without time zone" })
     public dateOfBirth: number;
 
-    @OneToMany(type => Appointment, appointments => appointments.patient)
+    @OneToMany(type => Appointment, appointments => appointments.patient, {
+        eager: true
+    })
     public appointments: Appointment[];
 }

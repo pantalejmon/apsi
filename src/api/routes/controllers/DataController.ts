@@ -16,6 +16,12 @@ export default class DataController {
         this.dbController = db;
     }
 
+    public async getAllAppointments(req: Request, res: Response) {
+        const appointmentRepo = this.dbController.getAppointmentRepository();
+        const relations = await appointmentRepo.find();
+        res.send(relations);
+    }
+
     /*
         Save new appointment
         Request should contain appointment fields without status (automatically set to Pending)

@@ -18,11 +18,15 @@ export class Appointment {
     public duration: number;
 
     // ToDo: update column
-    @ManyToOne(type => Patient, patient => patient.appointments)
+    @ManyToOne(type => Patient, patient => patient.appointments, {
+        eager: true
+    })
     public patient: Patient;
 
     // ToDo: update column
-    @ManyToOne(type => Doctor, doctor => doctor.appointments)
+    @ManyToOne(type => Doctor, doctor => doctor.appointments, {
+        eager: true
+    })
     public doctor: Doctor;
 
     // pending / finished / confirmed
