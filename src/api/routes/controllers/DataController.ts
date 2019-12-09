@@ -22,7 +22,7 @@ export default class DataController {
         and patientId and doctorId
     */
     public async saveNewAppointment(req: Request, res: Response) {
-        if (!req.body.startDate || 
+        if (!req.body.startDate ||
             !req.body.duration ||
             !req.body.patientId ||
             !req.body.doctorId) {
@@ -70,4 +70,15 @@ export default class DataController {
         }
     }
 
+    /*
+        Remove appointment by sent appointmentId
+    */
+    public async deleteAppointment(req: Request, res: Response) {
+        if (!req.body.appointmentId) {
+            res.send({ message: "No appointmentId sent" });
+            return;
+        }
+        const repository = this.dbController.getAppointmentRepository();
+        await repository.delete({ id: req.body.appointmentId });
+    }
 }
