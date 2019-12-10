@@ -135,7 +135,6 @@ export default class UserController {
         const repository = this.dbController.getPatientRepository();
         const patientToDelete = await repository.findOne({ mail: req.body.mail });
         await repository.remove(patientToDelete);
-
         res.send(patientToDelete);
     }
 

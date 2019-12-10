@@ -11,8 +11,6 @@ export default class Doctor extends User {
     @Column()
     public specialization: string = '';
 
-    @OneToMany(type => Appointment, appointments => appointments.doctor, {
-        eager: true
-    })
+    @OneToMany(type => Appointment, appointments => appointments.doctor)
     public appointments: Appointment[];
 }
