@@ -16,15 +16,31 @@ export default class DataController {
         this.api = Const.api;
         this.router = app;
         this.dbController = db;
-        this.getAllMyPatientAppointments = this.getAllMyPatientAppointments.bind(this);
+
+        this.getAllAppointments = this.getAllAppointments.bind(this);
+        this.getAppointmentsForPatient = this.getAppointmentsForPatient.bind(this);
+        this.getAppointmentsForDoctor = this.getAppointmentsForDoctor.bind(this);
         this.saveNewAppointment = this.saveNewAppointment.bind(this);
+        this.setAppointmentStatus = this.setAppointmentStatus.bind(this);
+        this.deleteAppointment = this.deleteAppointment.bind(this);
+
     }
 
     // Dlaczego dostęp do wszystkich wizyt?
     public async getAllAppointments(req: Request, res: Response) {
         const appointmentRepo = this.dbController.getAppointmentRepository();
-        const relations = await appointmentRepo.find();
-        res.send(relations);
+        const appointments = await appointmentRepo.find({ relations: ["patient", "doctor"] });
+        res.send(appointments);
+    }
+
+    public async getAppointmentsForDoctor(req: Request, res: Response) {
+        const appointmentRepo = this.dbController.getAppointmentRepository();
+
+    }
+
+    public async getAppointmentsForPatient(req: Request, res: Response) {
+        const appointmentRepo = this.dbController.getAppointmentRepository();
+
     }
 
     /**
