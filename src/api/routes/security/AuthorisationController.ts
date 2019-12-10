@@ -33,6 +33,7 @@ export default class AuthorisationController {
                 else {
                     if (req.session.mail !== decoded.mail) req.session.mail = decoded.mail
                     if (req.session.role !== decoded.role) req.session.role = decoded.role
+                    if (req.session.userid !== decoded.userid) req.session.userid = decoded.userid
                     next();
                 }
             })
