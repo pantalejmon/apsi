@@ -26,8 +26,9 @@ export default class AuthenticationController {
                 let status = await bcrypt.compare(pass, user.hashedPassword);
                 if (status) {
                     req.session.role = await this.checkRole(user);
-                    req.session.mail = user.mail
-                    req.session.token = jwt.sign({ mail: user.mail, role: req.session.role }, "tajnehaslo(pozniej_bedzie_z_credentiali)", {
+                    req.session.mail = user.mail;
+                    req.session.userid = user.id;
+                    req.session.token = jwt.sign({ mail: user.mail, role: req.session.role, userid: req.session.userid }, "tajnehaslo(pozniej_bedzie_z_credentiali)", {
                         expiresIn: 1000 * 60 * 30
                     })
                     next();
