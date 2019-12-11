@@ -18,28 +18,11 @@ export default class DataController {
         this.dbController = db;
 
         this.getAllAppointments = this.getAllAppointments.bind(this);
-        this.getAppointmentsForPatient = this.getAppointmentsForPatient.bind(this);
-        this.getAppointmentsForDoctor = this.getAppointmentsForDoctor.bind(this);
+        this.getAllMyPatientAppointments = this.getAllMyPatientAppointments.bind(this);
+        this.getAllMyDoctorAppointments = this.getAllMyDoctorAppointments.bind(this);
         this.saveNewAppointment = this.saveNewAppointment.bind(this);
         this.setAppointmentStatus = this.setAppointmentStatus.bind(this);
         this.deleteAppointment = this.deleteAppointment.bind(this);
-
-    }
-
-    // Dlaczego dostęp do wszystkich wizyt?
-    public async getAllAppointments(req: Request, res: Response) {
-        const appointmentRepo = this.dbController.getAppointmentRepository();
-        const appointments = await appointmentRepo.find({ relations: ["patient", "doctor"] });
-        res.send(appointments);
-    }
-
-    public async getAppointmentsForDoctor(req: Request, res: Response) {
-        const appointmentRepo = this.dbController.getAppointmentRepository();
-
-    }
-
-    public async getAppointmentsForPatient(req: Request, res: Response) {
-        const appointmentRepo = this.dbController.getAppointmentRepository();
 
     }
 
@@ -48,10 +31,40 @@ export default class DataController {
      * @param req 
      * @param res 
      */
+    public async getAllAppointments(req: Request, res: Response) {
+        if (req.session.role === Role.ADMIN) {
+            const appointmentRepo = this.dbController.getAppointmentRepository();
+            const appointments = await appointmentRepo.find({ relations: ["patient", "doctor"] });
+            res.send(appointments);
+        } else {
+            res.send({ error: Errors.PERMISSION_DENIED });
+        }
+    }
+
+    /**
+     * Get all appointments for particular patient
+     * @param req 
+     * @param res 
+     */
     public async getAllMyPatientAppointments(req: Request, res: Response) {
         if (req.session.role === Role.PATIENT) {
             const appointmentRepo = this.dbController.getAppointmentRepository();
             const myAppointments = await appointmentRepo.find({ where: { patient: req.session.userid } });
+            res.send(myAppointments);
+        } else {
+            res.send({ error: Errors.PERMISSION_DENIED });
+        }
+    }
+
+    /**
+     * Get all appointments for particular doctor
+     * @param req 
+     * @param res 
+     */
+    public async getAllMyDoctorAppointments(req: Request, res: Response) {
+        if (req.session.role === Role.DOCTOR) {
+            const appointmentRepo = this.dbController.getAppointmentRepository();
+            const myAppointments = await appointmentRepo.find({ where: { doctor: req.session.userid } });
             res.send(myAppointments);
         } else {
             res.send({ error: Errors.PERMISSION_DENIED });
@@ -106,10 +119,12 @@ export default class DataController {
         res.send(newAppointment);
     }
 
-    /*
-        Set new status to appointment
-        Request should contain @appointmentId and @newStatus
-    */
+    /**
+     * Set new status to appointment
+     * Request should contain @appointmentId and @newStatus
+     * @param req 
+     * @param res 
+     */
     public async setAppointmentStatus(req: Request, res: Response) {
         if (!req.body.appointmentId || !req.body.newStatus) {
             res.send({ error: Errors.INVALID_DATA });
