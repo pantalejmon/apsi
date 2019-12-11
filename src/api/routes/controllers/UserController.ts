@@ -1,11 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcryptjs';
 import DatabaseController from '../../../database/DatabaseController';
-import { Role } from '../../../database/util/Enums';
+import { Role, Errors } from '../../../database/util/Enums';
 import Patient from '../../../database/entity/Patient';
 import Doctor from '../../../database/entity/Doctor';
 import express from "express"
 import User from '../../../database/entity/User';
+import crypto from "crypto";
+import MailController from '../../mail/MailController';
 
 export default class UserController {
     private dbController: DatabaseController;
@@ -54,6 +56,8 @@ export default class UserController {
             newPatient.hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
             newPatient.citizenId = req.body.citizenId;
             newPatient.dateOfBirth = req.body.dateOfBirth;
+            newPatient.registrationToken = this.generateToken();
+            MailController.ActivationMail(newPatient);
             this.savePatient(newPatient);
             // tslint:disable-next-line: triple-equals
         } else if (req.body.role == Role.DOCTOR) {
@@ -68,6 +72,8 @@ export default class UserController {
             newDoctor.phoneNumber = req.body.phoneNumber;
             newDoctor.hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync());
             newDoctor.specialization = req.body.specialization;
+            newDoctor.registrationToken = this.generateToken();
+            MailController.ActivationMail(newDoctor);
             this.saveDoctor(newDoctor);
         } else {
             res.send({ message: "Invalid data" });
@@ -144,5 +150,18 @@ export default class UserController {
         await repository.remove(doctorToDelete);
         res.send(doctorToDelete);
     }
+
+    public async mailActivation(req: express.Request, res: express.Response) {
+        const token = req.params.token;
+        const p = await this.dbController.getPatientRepository().update({ registrationToken: token }, { isActive: true })
+        const d = await this.dbController.getDoctorRepository().update({ registrationToken: token }, { isActive: true })
+        if (p || d) res.send({ message: "Poprawna weryfikacja konta" });
+        else res.send({ error: Errors.WRONG_CREDENTIALS })
+    }
+
+    public generateToken(): string {
+        return crypto.randomBytes(64).toString('hex');
+    }
+
 }
 

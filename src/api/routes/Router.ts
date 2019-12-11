@@ -31,6 +31,7 @@ export default class Router {
          */
         this.router.post(this.api + "login", this.authController.checkLoginAndPass, this.userController.login);
         this.router.post(this.api + "register", this.userController.signUp);
+        this.router.get(this.api + "mailactivation/:token", this.userController.mailActivation);
 
         /**
          * Wystawienie publicznych htmli
