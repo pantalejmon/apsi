@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>System elektronicznej rejestracji pacjentów</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body>
+  <header>
+    <!-- OSTRZEŻENIE O BRAKU SKRYPTÓW -->
+    <noscript>
+      <div>
+        W celu obsługi aplikacji włącz obsługe skryptów
+      </div>
+    </noscript>
+    <!-- GÓRNA BELKA I MENU -->
+    <nav class="blue lighten-2">
+      <div class="nav-wrapper">
+        <span class="brand-logo center white-text text-darken-4">SERP
+        </span>
+        <a href="#" data-target="slide-out" class="sidenav-trigger">
+          <i class="material-icons white-text text-darken-4">menu</i>
+        </a>
+      </div>
+    </nav>
+    <main>
+      <center>
+          <div class="row"  style=" padding: 32px 48px 0px 48px; border: 1px; margin-top: 100px; margin-left:300px; solid #EEE;">
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input placeholder="" id="imie" type="text" class="validate">
+                    <label for="imie">Imię</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <input placeholder="" id="nazwisko" type="text" class="validate">
+                    <label for="nazwisko">Nazwisko</label>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="" id="email" type="email" class="validate">
+                      <label for="email">Email</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="input-field col s12">
+                        <input placeholder="" id="numer_telefonu" type="number" class="validate">
+                        <label for="numer_telefonu">Numer telefonu</label>
+                      </div>
+                    </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input placeholder="" id="haslo" type="password" class="validate">
+                    <label for="haslo">Hasło</label>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="" id="powtorz_haslo" type="password" class="validate">
+                      <label for="powtorz_haslo">Powtórz hasło</label>
+                    </div>
+                  </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="" id="pesel" type="text" class="validate">
+                      <label for="pesel">Pesel</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                        <select name="typ_konta">
+                            <option value="" disabled selected>Wybierz opcję</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                          </select>
+                        <!-- <input placeholder="" id="konto" type="text" class="validate"> -->
+                        <label for="konto">Typ konta</label>
+                      </div>
+                  </div>
+              </form>
+            </div>
+      </center>
+  </main>
+  </header>
+
+  <ul id="slide-out" class="sidenav sidenav-fixed">
+    <li>
+      <div class="user-view" style=' height: 200px;'>
+        <div class="background ">
+          <img src="images/doctor.jpg" alt="logo" img style=' margin: 0px 0px; width: 100%;'>
+        </div>
+        <!-- <a href="#email"><span class="white-text email">Tu mail pacjenta po zalogowaniu</span></a> -->
+      </div>
+    </li>
+
+    <li id="info" class="active"><a href="info.html" target="iframe_a" class="waves-effect sidenav-close">
+        Informacje</a></li>
+    <li id="login"><a href="login.html" target="iframe_a" class="waves-effect sidenav-close">
+        Logowanie</a></li>
+    <li id="register"><a href="loginregister.html" target="iframe_a" class="waves-effect sidenav-close">
+        Rejestracja</a></li>
+
+    <script src="js/materialize.min.js"></script>
+    <script src="js/init.js"></script>
+
+</body>
+
+</html>
