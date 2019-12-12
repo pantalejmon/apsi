@@ -8,13 +8,9 @@ import Doctor from '../../../database/entity/Doctor';
 import Patient from '../../../database/entity/Patient';
 
 export default class DataController {
-    private router: express.Application | undefined;
-    private api: string;
     private dbController: DatabaseController;
 
-    constructor(app: express.Application, db: DatabaseController) {
-        this.api = Const.api;
-        this.router = app;
+    constructor(db: DatabaseController) {
         this.dbController = db;
 
         this.getAllAppointments = this.getAllAppointments.bind(this);
@@ -23,7 +19,6 @@ export default class DataController {
         this.saveNewAppointment = this.saveNewAppointment.bind(this);
         this.setAppointmentStatus = this.setAppointmentStatus.bind(this);
         this.deleteAppointment = this.deleteAppointment.bind(this);
-
     }
 
     /**

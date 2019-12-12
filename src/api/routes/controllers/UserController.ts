@@ -12,10 +12,11 @@ import MailController from '../../mail/MailController';
 export default class UserController {
     private dbController: DatabaseController;
     constructor(db: DatabaseController) {
+        // Bindowanie
         this.dbController = db;
         this.login = this.login.bind(this);
         this.signUp = this.signUp.bind(this);
-        this.savePatient
+        this.savePatient = this.savePatient.bind(this);
         this.saveDoctor = this.saveDoctor.bind(this);
         this.staticDashboard = this.staticDashboard.bind(this);
         this.getAllPatients = this.getAllPatients.bind(this);
