@@ -15,17 +15,17 @@ var specjalizacjaPanel = document.getElementById("specjalizacja_panel");
 var buttonPacjent = document.getElementById("pacjent");
 function wyswietlDlaPacjenta() {
   
-  peselPanel.style.visibility = "visible";
-  dataUrodzeniaPanel.style.visibility = "visible";
-  specjalizacjaPanel.style.visibility = "hidden";
+  peselPanel.style.display = "inline";
+  dataUrodzeniaPanel.style.display = "inline";
+  specjalizacjaPanel.style.display = "none";
 }
 buttonPacjent.onclick = wyswietlDlaPacjenta;
 
 var buttonLekarz = document.getElementById("lekarz");
 function wyswietlDlaLekarza() {
-  peselPanel.style.visibility = "hidden";
-  dataUrodzeniaPanel.style.visibility = "hidden";
-  specjalizacjaPanel.style.visibility = "visible";
+  peselPanel.style.display = "none";
+  dataUrodzeniaPanel.style.display = "none";
+  specjalizacjaPanel.style.display = "inline";
   
 }
 buttonLekarz.onclick = wyswietlDlaLekarza;
