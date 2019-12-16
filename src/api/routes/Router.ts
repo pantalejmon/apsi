@@ -56,11 +56,11 @@ export default class Router {
          * Htmle statyczne prywatne
          */
         this.router.use("/user", this.permController.verifyUser, this.userController.staticDashboard); // Tutaj przekierowujemy na patient albo doctor
-        this.router.use("/patient", this.permController.verifyUser, express.static("../../../private/patient", {
+        this.router.use("/patient", this.permController.verifyUser, this.permController.checkRolePatient, express.static("./src/private/patient", {
             index: false,
             extensions: ['html']
         }));
-        this.router.use("/doctor", this.permController.verifyUser, express.static("../../../private/doctor", {
+        this.router.use("/doctor", this.permController.verifyUser, this.permController.checkRoleDoctor, express.static("./src/private/doctor", {
             index: false,
             extensions: ['html']
         }));
