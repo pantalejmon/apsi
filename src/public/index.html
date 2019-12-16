@@ -44,15 +44,25 @@
       </div>
     </li>
 
-    <li id="info" class="active"><a href="info.html" target="iframe_a" class="waves-effect sidenav-close">
+    <li id="info" class="active"><a href="info.html" target="iframe_a" class="waves-effect sidenav-close"
+        onclick="changeActiveMenuItem('info');">
         Informacje</a></li>
-    <li id="login"><a href="login.html" target="iframe_a" class="waves-effect sidenav-close">
+    <li id="login"><a href="login.html" target="iframe_a" class="waves-effect sidenav-close"
+        onclick="changeActiveMenuItem('login');">
         Logowanie</a></li>
-    <li id="register"><a href="loginregister.html" target="iframe_a" class="waves-effect sidenav-close">
+    <li id="register"><a href="loginregister.html" target="iframe_a" class="waves-effect sidenav-close"
+        onclick="changeActiveMenuItem('register');">
         Rejestracja</a></li>
+  </ul>
 
-    <script src="js/materialize.min.js"></script>
-    <script src="js/init.js"></script>
+  <main style="height: Calc(100%-100px)">
+    <!-- <div style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; background-color: aquamarine;">
+      Content</div> -->
+    <iframe src=" info.html" name="iframe_a" frameborder="0"
+      style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+  </main>
+  <script src="js/materialize.min.js"></script>
+  <script src="js/init.js"></script>
 
 </body>
 
