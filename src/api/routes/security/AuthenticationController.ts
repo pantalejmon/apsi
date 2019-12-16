@@ -16,7 +16,7 @@ export default class AuthenticationController {
 
     public async checkLoginAndPass(req: Request, res: Response, next: NextFunction) {
         let email: string = req.body.email;
-        let pass: string = req.body.pass;
+        let pass: string = req.body.password;
         try {
             let user: User =
                 await this.dbController.getPatientRepository().findOne({ where: { mail: email } }) ||
