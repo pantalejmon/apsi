@@ -42,10 +42,10 @@ export default class UserController {
             res.send({ message: "Invalid data" });
             return;
         }
-        // ToDo: extract common logic
+        // ToDo: check if data is valid before saving
         // tslint:disable-next-line: triple-equals
         if (req.body.role == Role.PATIENT) {
-            if (!req.body.citizenId || req.body.dateOfBirth) {
+            if (!req.body.citizenId || !req.body.dateOfBirth) {
                 res.send({ message: "Invalid citizenId or date of birth" });
                 return;
             }
