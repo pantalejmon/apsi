@@ -35,24 +35,32 @@ export default class UserController {
         // ToDo: Add mail and phone number checks
         if (!req.body.role) {
             res.send({ message: "Access denied - unknown access right (role)" });
+            return;
         } else if (!this.isStringNotEmpty(req.body.firstName)) {
             res.send({ message: "Invalid first name" });
+            return;
         } else if (!this.isStringNotEmpty(req.body.lastName)) {
             res.send({ message: "Invalid last name" });
+            return;
         } else if (!req.body.mail) {
             res.send({ message: "Invalid email address" });
+            return;
         } else if (!req.body.phoneNumber) {
             res.send({ message: "Invalid phone number" });
+            return;
         } else if (!req.body.password) {
             res.send({ message: "No password sent" });
+            return;
         }
 
         // tslint:disable-next-line: triple-equals
         if (req.body.role == Role.PATIENT) {
             if (!this.isCitizenIdValid(req.body.citizenId)) {
                 res.send({ message: "Invalid citizenId" });
+                return;
             } else if (!this.isDateOfBirthValid(req.body.dateOfBirth)) {
                 res.send({ message: "Invalid date of birth" });
+                return;
             }
 
             const newPatient = new Patient();
