@@ -31,6 +31,10 @@ export default class UserController {
         res.status(200).send({ token: req.session.token });
     }
 
+    public async getMyRole(req: Request, res: Response): Promise<void> {
+        res.status(200).send({ role: req.session.role });
+    }
+
     public async signUp(req: Request, res: Response): Promise<void> {
         // ToDo: Add mail and phone number checks
         if (!req.body.role) {
@@ -117,20 +121,20 @@ export default class UserController {
         }
     }
 
-    public async getAllPatients(req: express.Request, res: express.Response) {
+    public async getAllPatients(req: Request, res: Response) {
         const repository = this.dbController.getPatientRepository();
         const patients = await repository.find();
         res.send(patients);
     }
 
-    public async getAllDoctors(req: express.Request, res: express.Response) {
+    public async getAllDoctors(req: Request, res: Response) {
         const repository = this.dbController.getDoctorRepository();
         const doctors = await repository.find();
         res.send(doctors);
     }
 
     // ToDo: check if request.params.email is OK
-    public async getPatientByEmail(req: express.Request, res: express.Response) {
+    public async getPatientByEmail(req: Request, res: Response) {
         const repository = this.dbController.getPatientRepository();
         const patient = repository.findOne(req.session.email);
 
@@ -142,7 +146,7 @@ export default class UserController {
     }
 
     // ToDo: check if request.params.email is OK
-    public async getDoctorByEmail(req: express.Request, res: express.Response) {
+    public async getDoctorByEmail(req: Request, res: Response) {
         const repository = this.dbController.getDoctorRepository();
         const doctor = repository.findOne(req.session.email);
 
@@ -153,21 +157,21 @@ export default class UserController {
         } else res.send(doctor);
     }
 
-    public async deletePatientByEmail(req: express.Request, res: express.Response) {
+    public async deletePatientByEmail(req: Request, res: Response) {
         const repository = this.dbController.getPatientRepository();
         const patientToDelete = await repository.findOne({ mail: req.body.mail });
         await repository.remove(patientToDelete);
         res.send(patientToDelete);
     }
 
-    public async deleteDoctorByEmail(req: express.Request, res: express.Response) {
+    public async deleteDoctorByEmail(req: Request, res: Response) {
         const repository = this.dbController.getDoctorRepository();
         const doctorToDelete = await repository.findOne({ mail: req.body.mail });
         await repository.remove(doctorToDelete);
         res.send(doctorToDelete);
     }
 
-    public async mailActivation(req: express.Request, res: express.Response) {
+    public async mailActivation(req: Request, res: Response) {
         const token = req.params.token;
         const p = await this.dbController.getPatientRepository().update({ registrationToken: token }, { isActive: true })
         const d = await this.dbController.getDoctorRepository().update({ registrationToken: token }, { isActive: true })
