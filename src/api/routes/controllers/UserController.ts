@@ -42,13 +42,21 @@ export default class UserController {
             res.send({ message: "Invalid data" });
             return;
         }
-        // ToDo: check if data is valid before saving
+
+        // else if (!this.isStringValid(req.body.firstName)) {
+        //     res.send({ message: "Invalid first name" });
+        // } else if (!this.isStringValid(req.body.lastName)) {
+        //     res.send({ message: "Invalid last name" });
+        // }
+
         // tslint:disable-next-line: triple-equals
         if (req.body.role == Role.PATIENT) {
-            if (!req.body.citizenId || !req.body.dateOfBirth) {
-                res.send({ message: "Invalid citizenId or date of birth" });
-                return;
+            if (!this.isCitizenIdValid(req.body.citizenId)) {
+                res.send({ message: "Invalid citizenId" });
+            } else if (!this.isDateOfBirthValid(req.body.dateOfBirth)) {
+                res.send({ message: "Invalid date of birth" });
             }
+
             const newPatient = new Patient();
             newPatient.firstName = req.body.firstName;
             newPatient.lastName = req.body.lastName;
@@ -164,5 +172,27 @@ export default class UserController {
         return crypto.randomBytes(64).toString('hex');
     }
 
+    private isCitizenIdValid(citizenId: string): boolean {
+        let onlyDigitsRegex = /^\d{11}$/;
+        if (!citizenId ||
+            !citizenId.trim() ||
+            citizenId.length !== 11 ||
+            !onlyDigitsRegex.test(citizenId)) {
+            return false;
+        } else return true;
+    }
+
+    private isDateOfBirthValid(dateOfBirth: number): boolean {
+        if (isNaN(dateOfBirth)) {
+            return false;
+        } else return true;
+    }
+
+    private isStringValid(input: string): boolean {
+        if (!input ||
+            !input.trim()) {
+            return false;
+        } else return true;
+    }
 }
 
