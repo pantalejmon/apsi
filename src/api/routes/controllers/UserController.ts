@@ -32,22 +32,20 @@ export default class UserController {
     }
 
     public async signUp(req: Request, res: Response): Promise<void> {
-        // ToDo: Check if everything in res.body is present/valid
-        if (!req.body.role
-            || !req.body.firstName
-            || !req.body.lastName
-            || !req.body.mail
-            || !req.body.phoneNumber
-            || !req.body.password) {
-            res.send({ message: "Invalid data" });
-            return;
+        // ToDo: Add mail and phone number checks
+        if (!req.body.role) {
+            res.send({ message: "Access denied - unknown access right (role)" });
+        } else if (!this.isStringNotEmpty(req.body.firstName)) {
+            res.send({ message: "Invalid first name" });
+        } else if (!this.isStringNotEmpty(req.body.lastName)) {
+            res.send({ message: "Invalid last name" });
+        } else if (!req.body.mail) {
+            res.send({ message: "Invalid email address" });
+        } else if (!req.body.phoneNumber) {
+            res.send({ message: "Invalid phone number" });
+        } else if (!req.body.password) {
+            res.send({ message: "No password sent" });
         }
-
-        // else if (!this.isStringValid(req.body.firstName)) {
-        //     res.send({ message: "Invalid first name" });
-        // } else if (!this.isStringValid(req.body.lastName)) {
-        //     res.send({ message: "Invalid last name" });
-        // }
 
         // tslint:disable-next-line: triple-equals
         if (req.body.role == Role.PATIENT) {
@@ -188,7 +186,7 @@ export default class UserController {
         } else return true;
     }
 
-    private isStringValid(input: string): boolean {
+    private isStringNotEmpty(input: string): boolean {
         if (!input ||
             !input.trim()) {
             return false;
