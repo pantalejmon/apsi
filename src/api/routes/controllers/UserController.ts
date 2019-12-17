@@ -32,23 +32,37 @@ export default class UserController {
     }
 
     public async signUp(req: Request, res: Response): Promise<void> {
-        // ToDo: Check if everything in res.body is present/valid
-        if (!req.body.role
-            || !req.body.firstName
-            || !req.body.lastName
-            || !req.body.mail
-            || !req.body.phoneNumber
-            || !req.body.password) {
-            res.send({ message: "Invalid data" });
+        // ToDo: Add mail and phone number checks
+        if (!req.body.role) {
+            res.send({ message: "Access denied - unknown access right (role)" });
+            return;
+        } else if (!this.isStringNotEmpty(req.body.firstName)) {
+            res.send({ message: "Invalid first name" });
+            return;
+        } else if (!this.isStringNotEmpty(req.body.lastName)) {
+            res.send({ message: "Invalid last name" });
+            return;
+        } else if (!req.body.mail) {
+            res.send({ message: "Invalid email address" });
+            return;
+        } else if (!req.body.phoneNumber) {
+            res.send({ message: "Invalid phone number" });
+            return;
+        } else if (!req.body.password) {
+            res.send({ message: "No password sent" });
             return;
         }
-        // ToDo: check if data is valid before saving
+
         // tslint:disable-next-line: triple-equals
         if (req.body.role == Role.PATIENT) {
-            if (!req.body.citizenId || !req.body.dateOfBirth) {
-                res.send({ message: "Invalid citizenId or date of birth" });
+            if (!this.isCitizenIdValid(req.body.citizenId)) {
+                res.send({ message: "Invalid citizenId" });
+                return;
+            } else if (!this.isDateOfBirthValid(req.body.dateOfBirth)) {
+                res.send({ message: "Invalid date of birth" });
                 return;
             }
+
             const newPatient = new Patient();
             newPatient.firstName = req.body.firstName;
             newPatient.lastName = req.body.lastName;
@@ -62,7 +76,8 @@ export default class UserController {
             this.savePatient(newPatient);
             // tslint:disable-next-line: triple-equals
         } else if (req.body.role == Role.DOCTOR) {
-            if (!req.body.specialization) {
+            if (!req.body.specialization ||
+                !req.body.specialization.trim()) {
                 res.send({ message: "Invalid specialization" });
                 return;
             }
@@ -164,5 +179,27 @@ export default class UserController {
         return crypto.randomBytes(64).toString('hex');
     }
 
+    private isCitizenIdValid(citizenId: string): boolean {
+        let onlyDigitsRegex = /^\d{11}$/;
+        if (!citizenId ||
+            !citizenId.trim() ||
+            citizenId.length !== 11 ||
+            !onlyDigitsRegex.test(citizenId)) {
+            return false;
+        } else return true;
+    }
+
+    private isDateOfBirthValid(dateOfBirth: number): boolean {
+        if (isNaN(dateOfBirth)) {
+            return false;
+        } else return true;
+    }
+
+    private isStringNotEmpty(input: string): boolean {
+        if (!input ||
+            !input.trim()) {
+            return false;
+        } else return true;
+    }
 }
 
