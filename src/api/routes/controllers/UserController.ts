@@ -31,24 +31,42 @@ export default class UserController {
         res.status(200).send({ token: req.session.token });
     }
 
+    public async getMyRole(req: Request, res: Response): Promise<void> {
+        res.status(200).send({ role: req.session.role });
+    }
+
     public async signUp(req: Request, res: Response): Promise<void> {
-        // ToDo: Check if everything in res.body is present/valid
-        if (!req.body.role
-            || !req.body.firstName
-            || !req.body.lastName
-            || !req.body.mail
-            || !req.body.phoneNumber
-            || !req.body.password) {
-            res.send({ message: "Invalid data" });
+        // ToDo: Add mail and phone number checks
+        if (!req.body.role) {
+            res.send({ message: "Access denied - unknown access right (role)" });
+            return;
+        } else if (!this.isStringNotEmpty(req.body.firstName)) {
+            res.send({ message: "Invalid first name" });
+            return;
+        } else if (!this.isStringNotEmpty(req.body.lastName)) {
+            res.send({ message: "Invalid last name" });
+            return;
+        } else if (!req.body.mail) {
+            res.send({ message: "Invalid email address" });
+            return;
+        } else if (!req.body.phoneNumber) {
+            res.send({ message: "Invalid phone number" });
+            return;
+        } else if (!req.body.password) {
+            res.send({ message: "No password sent" });
             return;
         }
-        // ToDo: check if data is valid before saving
+
         // tslint:disable-next-line: triple-equals
         if (req.body.role == Role.PATIENT) {
-            if (!req.body.citizenId || !req.body.dateOfBirth) {
-                res.send({ message: "Invalid citizenId or date of birth" });
+            if (!this.isCitizenIdValid(req.body.citizenId)) {
+                res.send({ message: "Invalid citizenId" });
+                return;
+            } else if (!this.isDateOfBirthValid(req.body.dateOfBirth)) {
+                res.send({ message: "Invalid date of birth" });
                 return;
             }
+
             const newPatient = new Patient();
             newPatient.firstName = req.body.firstName;
             newPatient.lastName = req.body.lastName;
@@ -62,7 +80,8 @@ export default class UserController {
             this.savePatient(newPatient);
             // tslint:disable-next-line: triple-equals
         } else if (req.body.role == Role.DOCTOR) {
-            if (!req.body.specialization) {
+            if (!req.body.specialization ||
+                !req.body.specialization.trim()) {
                 res.send({ message: "Invalid specialization" });
                 return;
             }
@@ -102,20 +121,20 @@ export default class UserController {
         }
     }
 
-    public async getAllPatients(req: express.Request, res: express.Response) {
+    public async getAllPatients(req: Request, res: Response) {
         const repository = this.dbController.getPatientRepository();
         const patients = await repository.find();
         res.send(patients);
     }
 
-    public async getAllDoctors(req: express.Request, res: express.Response) {
+    public async getAllDoctors(req: Request, res: Response) {
         const repository = this.dbController.getDoctorRepository();
         const doctors = await repository.find();
         res.send(doctors);
     }
 
     // ToDo: check if request.params.email is OK
-    public async getPatientByEmail(req: express.Request, res: express.Response) {
+    public async getPatientByEmail(req: Request, res: Response) {
         const repository = this.dbController.getPatientRepository();
         const patient = repository.findOne(req.session.email);
 
@@ -127,7 +146,7 @@ export default class UserController {
     }
 
     // ToDo: check if request.params.email is OK
-    public async getDoctorByEmail(req: express.Request, res: express.Response) {
+    public async getDoctorByEmail(req: Request, res: Response) {
         const repository = this.dbController.getDoctorRepository();
         const doctor = repository.findOne(req.session.email);
 
@@ -138,21 +157,21 @@ export default class UserController {
         } else res.send(doctor);
     }
 
-    public async deletePatientByEmail(req: express.Request, res: express.Response) {
+    public async deletePatientByEmail(req: Request, res: Response) {
         const repository = this.dbController.getPatientRepository();
         const patientToDelete = await repository.findOne({ mail: req.body.mail });
         await repository.remove(patientToDelete);
         res.send(patientToDelete);
     }
 
-    public async deleteDoctorByEmail(req: express.Request, res: express.Response) {
+    public async deleteDoctorByEmail(req: Request, res: Response) {
         const repository = this.dbController.getDoctorRepository();
         const doctorToDelete = await repository.findOne({ mail: req.body.mail });
         await repository.remove(doctorToDelete);
         res.send(doctorToDelete);
     }
 
-    public async mailActivation(req: express.Request, res: express.Response) {
+    public async mailActivation(req: Request, res: Response) {
         const token = req.params.token;
         const p = await this.dbController.getPatientRepository().update({ registrationToken: token }, { isActive: true })
         const d = await this.dbController.getDoctorRepository().update({ registrationToken: token }, { isActive: true })
@@ -164,5 +183,27 @@ export default class UserController {
         return crypto.randomBytes(64).toString('hex');
     }
 
+    private isCitizenIdValid(citizenId: string): boolean {
+        let onlyDigitsRegex = /^\d{11}$/;
+        if (!citizenId ||
+            !citizenId.trim() ||
+            citizenId.length !== 11 ||
+            !onlyDigitsRegex.test(citizenId)) {
+            return false;
+        } else return true;
+    }
+
+    private isDateOfBirthValid(dateOfBirth: number): boolean {
+        if (isNaN(dateOfBirth)) {
+            return false;
+        } else return true;
+    }
+
+    private isStringNotEmpty(input: string): boolean {
+        if (!input ||
+            !input.trim()) {
+            return false;
+        } else return true;
+    }
 }
 
