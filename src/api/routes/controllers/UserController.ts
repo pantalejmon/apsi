@@ -76,7 +76,8 @@ export default class UserController {
             this.savePatient(newPatient);
             // tslint:disable-next-line: triple-equals
         } else if (req.body.role == Role.DOCTOR) {
-            if (!req.body.specialization) {
+            if (!req.body.specialization ||
+                !req.body.specialization.trim()) {
                 res.send({ message: "Invalid specialization" });
                 return;
             }
