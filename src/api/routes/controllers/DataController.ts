@@ -151,14 +151,18 @@ export default class DataController {
     }
 
     /*
-        Remove appointment by sent 
-        Do poprawy jeszcze
+        Remove appointment by sent appointmentId
     */
     public async deleteAppointment(req: Request, res: Response) {
         if (!req.body.appointmentId) {
             res.send({ message: "No appointmentId sent" });
             return;
         }
+        if (req.session.role !== Role.DOCTOR) {
+            res.send({ error: Errors.PERMISSION_DENIED });
+            return;
+        }
+
         const repository = this.dbController.getAppointmentRepository();
         let deleteResponse = await repository.delete({ id: req.body.appointmentId });
         if (deleteResponse.raw[1]) {
