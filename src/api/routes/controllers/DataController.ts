@@ -160,6 +160,9 @@ export default class DataController {
             return;
         }
         const repository = this.dbController.getAppointmentRepository();
-        await repository.delete({ id: req.body.appointmentId });
+        let deleteResponse = await repository.delete({ id: req.body.appointmentId });
+        if (deleteResponse.raw[1]) {
+            res.send({ message: "Post successfully deleted" });
+        } else res.send({ message: "No post with given ID" });
     }
 }
