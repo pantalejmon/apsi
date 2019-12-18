@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>System elektronicznej rejestracji pacjentów</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body>
+    <header>
+
+        <!-- OSTRZEŻENIE O BRAKU SKRYPTÓW -->
+        <noscript>
+            <div>
+                W celu obsługi aplikacji włącz obsługe skryptów
+            </div>
+        </noscript>
+
+        <!-- GÓRNA BELKA-->
+        <nav class="blue lighten-2">
+            <div class="nav-wrapper">
+                <span class="brand-logo center white-text text-darken-4">SERP
+                </span>
+                <a href="#" data-target="slide-out" class="sidenav-trigger">
+                    <i class="material-icons white-text text-darken-4">menu</i>
+                </a>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- MENU BOCZNE -->
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li>
+            <div class="user-view" style=' height: 200px;'>
+                <div class="background ">
+                    <img src="images/doctor.jpg" alt="logo" img style=' margin: 0px 0px; width: 100%;'>
+                </div>
+                <a href="#email"><span class="white-text email">Tu mail pacjenta po zalogowaniu</span></a>
+            </div>
+        </li>
+
+        <li id="patientProfile" class="active"><a href="patientProfile.html" target="iframe_a"
+                class="waves-effect sidenav-close">
+                Profil Pacjenta</a></li>
+        <li id="registerVisit"><a href="registerVisit.html" target="iframe_a" class="waves-effect sidenav-close">
+                Zarejestruj Wizytę</a></li>
+        <li id="visits"><a href="yourVisits.html" target="iframe_a" class="waves-effect sidenav-close">
+                Twoje wizyty</a></li>
+        <li id="contactWithDoctor"><a href="contactWithDoctor.html" target="iframe_a"
+                class="waves-effect sidenav-close">
+                Skontaktuj się z lekarzem</a></li>
+    </ul>
+
+    <!-- OKNO GŁÓWNE -->
+    <main style="height: Calc(100%-100px)">
+        <iframe src="patientDashboard.html" name="iframe_a" frameborder="0"
+            style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+    </main>
+
+    <script src="js/materialize.min.js"></script>
+    <script src="js/patientIndexScript.js"></script>
+</body>
+
+</html>

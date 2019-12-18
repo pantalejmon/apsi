@@ -34,11 +34,10 @@ function login() {
                 // Tutaj musi być działanie dotyczące nie poprawnego logowania, jakiś komunikat
             }
             if (response.token) {
-                if (response.role === "DOCTOR") location.replace("http://" + window.location.host + "/doctor/doctorDashboard.html");
-                else if (response.role === "PATIENT") location.replace("http://" + window.location.host + "/patient/patientDashboard.html");
+                if (response.role === "DOCTOR") top.location.replace("http://" + window.location.host + "/doctor/doctorDashboard.html");
+                else if (response.role === "PATIENT") top.location.replace("http://" + window.location.host + "/patient/patientDashboard.html");
             }
         }
     });
-
     xhr.send(JSON.stringify(message));
 }
