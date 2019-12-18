@@ -15,8 +15,10 @@ export default class AuthenticationController {
     }
 
     public async checkLoginAndPass(req: Request, res: Response, next: NextFunction) {
+        if (!req.body.email || !req.body.password) res.status(httpstatus.UNAUTHORIZED).send({ error: Errors.WRONG_CREDENTIALS })
         let email: string = req.body.email;
         let pass: string = req.body.password;
+
         try {
             let user: User =
                 await this.dbController.getPatientRepository().findOne({ where: { mail: email } }) ||
@@ -32,11 +34,13 @@ export default class AuthenticationController {
                         expiresIn: 1000 * 60 * 30
                     })
                     next();
+
                 }
                 else {
                     // Temporary answer:
+                    console.log("Niepoprawne hasło")
                     req.session.destroy((err) => console.log(err));
-                    res.status(httpstatus.UNAUTHORIZED).send({ error: Errors.WRONG_CREDENTIALS })
+                    res.send({ error: Errors.WRONG_CREDENTIALS })
                 }
             }
         }
