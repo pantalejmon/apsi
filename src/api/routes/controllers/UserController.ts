@@ -28,7 +28,12 @@ export default class UserController {
     }
 
     public async login(req: Request, res: Response): Promise<void> {
-        res.status(200).send({ token: req.session.token });
+        res.send({ token: req.session.token, role: req.session.role });
+    }
+
+    public async logout(req: Request, res: Response): Promise<void> {
+        req.session.destroy((err) => { if (err) console.log(err) });
+        res.redirect("/index");
     }
 
     public async getMyRole(req: Request, res: Response): Promise<void> {
