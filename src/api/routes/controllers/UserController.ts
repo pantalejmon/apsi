@@ -29,6 +29,7 @@ export default class UserController {
 
     public async login(req: Request, res: Response): Promise<void> {
         res.send({ token: req.session.token, role: req.session.role });
+
     }
 
     public async logout(req: Request, res: Response): Promise<void> {
