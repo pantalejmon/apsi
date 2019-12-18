@@ -45,8 +45,9 @@ export default class Router {
         this.router.get(this.api + "patient/appointment", this.permController.verifyUser, this.permController.checkRolePatient, this.dataController.getAllMyPatientAppointments);
         this.router.post(this.api + "appointment/new", this.permController.verifyUser, this.dataController.saveNewAppointment);
         this.router.put(this.api + "appointment/status", this.permController.verifyUser, this.permController.checkRoleDoctor, this.dataController.setAppointmentStatus);
-        this.router.put(this.api + "util/role", this.permController.verifyUser, this.userController.getMyRole);
-
+        this.router.get(this.api + "util/role", this.permController.verifyUser, this.userController.getMyRole);
+        this.router.post(this.api + "logout", this.userController.logout);
+        this.router.get(this.api + "logout", this.userController.logout);
         /**
          * Wystawienie publicznych htmli
          */
