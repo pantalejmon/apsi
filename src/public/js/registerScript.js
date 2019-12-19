@@ -52,3 +52,51 @@ function showPatient(status) {
         specjalizacjaPanel.style.display = "inline";
     }
 }
+
+/**
+ * Function called after clicking button to submit register form 
+ */
+function register() {
+    const submittedData = {};
+    submittedData.firstName = document.getElementById("imie").value;
+    submittedData.lastName = document.getElementById("nazwisko").value;
+    submittedData.mail = document.getElementById("email").value;
+    submittedData.phoneNumber = document.getElementById("numer_telefonu").value;
+    submittedData.password = document.getElementById("haslo").value;
+    
+    // If z checkiem wybranej roli -> uzupelnienie reszty
+    if (document.getElementById("pacjent").checked) {
+        console.log("Pacjent");
+        submittedData.role = "PATIENT"
+        submittedData.citizenId = document.getElementById("pesel").value;
+        submittedData.password = document.getElementById("kalendarz_urodziny").value;
+    } else if (document.getElementById("lekarz").checked) {
+        console.log("Lekarz");
+        submittedData.role = "DOCTOR"
+        submittedData.specialization = document.getElementById("specjalizacja").value;
+    } else {
+        console.log("brak roli");
+    }
+
+
+    // let selectedOption = document.getElementById('form-register')['radio-group-rola'].value;
+    // console.log(selectedOption);
+
+    console.log(submittedData);
+    if (!validateFormInput(submittedData)) {
+        // Data is not valid, show message to user
+        return;
+    }
+
+
+
+
+
+}
+
+/**
+ * Function checks if form data is valid before sending it to server
+ */
+function validateFormInput(inputJson) {
+    return true;
+}
