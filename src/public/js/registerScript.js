@@ -94,13 +94,15 @@ function register() {
         if (this.status === 200) {
             const response = JSON.parse(this.responseText);
             console.log(response);
-            if (response.error) {
-                alert("Niepoprawne dane");
-            } else {
-                alert(response);
-                // ToDo: redirect to login after 5 secs
-                //top.location.replace("http://" + window.location.host + "/login.html");
-            }
+            // Show message to user, after user clicks 'OK', redirecting to login screen
+            alert(response.message);
+            top.location.replace("http://" + window.location.host + "/login.html");
+
+        } else if (this.status === 400) {
+            const response = JSON.parse(this.responseText);
+            console.log(response);
+            // Sent data was wrong, show message to user
+            alert(response.error);
         }
     });
     xhr.send(JSON.stringify(submittedData));
