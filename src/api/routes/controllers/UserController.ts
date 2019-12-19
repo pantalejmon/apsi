@@ -44,32 +44,32 @@ export default class UserController {
     public async signUp(req: Request, res: Response): Promise<void> {
         // ToDo: Add mail and phone number checks
         if (!req.body.role) {
-            res.send({ message: "Access denied - unknown access right (role)" });
+            res.status(400).send({ error: "Access denied - unknown access right (role)" });
             return;
         } else if (!this.isStringNotEmpty(req.body.firstName)) {
-            res.send({ message: "Invalid first name" });
+            res.status(400).send({ error: "Invalid first name" });
             return;
         } else if (!this.isStringNotEmpty(req.body.lastName)) {
-            res.send({ message: "Invalid last name" });
+            res.status(400).send({ error: "Invalid last name" });
             return;
         } else if (!req.body.mail) {
-            res.send({ message: "Invalid email address" });
+            res.status(400).send({ error: "Invalid email address" });
             return;
         } else if (!req.body.phoneNumber) {
-            res.send({ message: "Invalid phone number" });
+            res.status(400).send({ error: "Invalid phone number" });
             return;
         } else if (!req.body.password) {
-            res.send({ message: "No password sent" });
+            res.status(400).send({ error: "No password sent" });
             return;
         }
 
         // tslint:disable-next-line: triple-equals
         if (req.body.role == Role.PATIENT) {
             if (!this.isCitizenIdValid(req.body.citizenId)) {
-                res.send({ message: "Invalid citizenId" });
+                res.status(400).send({ error: "Invalid citizenId" });
                 return;
             } else if (!this.isDateOfBirthValid(req.body.dateOfBirth)) {
-                res.send({ message: "Invalid date of birth" });
+                res.status(400).send({ error: "Invalid date of birth" });
                 return;
             }
 
@@ -84,11 +84,12 @@ export default class UserController {
             newPatient.registrationToken = this.generateToken();
             MailController.ActivationMail(newPatient);
             this.savePatient(newPatient);
+            res.status(200).send({ message: "Patient registered" });
             // tslint:disable-next-line: triple-equals
         } else if (req.body.role == Role.DOCTOR) {
             if (!req.body.specialization ||
                 !req.body.specialization.trim()) {
-                res.send({ message: "Invalid specialization" });
+                res.status(400).send({ error: "Invalid specialization" });
                 return;
             }
             const newDoctor = new Doctor();
@@ -101,8 +102,9 @@ export default class UserController {
             newDoctor.registrationToken = this.generateToken();
             MailController.ActivationMail(newDoctor);
             this.saveDoctor(newDoctor);
+            res.status(200).send({ message: "Doctor registered" });
         } else {
-            res.send({ message: "Invalid data" });
+            res.status(400).send({ error: "Invalid data" });
         }
     }
 
