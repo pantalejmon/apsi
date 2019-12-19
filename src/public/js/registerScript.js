@@ -112,6 +112,7 @@ function register() {
  * Function checks if form data is valid before sending it to server
  */
 function validateFormInput(inputJson) {
+    // ToDo: implementation - Oskar
     return true;
 }
 
