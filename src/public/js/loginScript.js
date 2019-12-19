@@ -21,7 +21,7 @@ function login() {
     message.password = document.getElementById("password").value;
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "http://" +
-        window.location.host + "/api/login", null);
+        window.location.host + "/api/login", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function () {
         console.log("cos doszlo");
