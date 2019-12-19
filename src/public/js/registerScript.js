@@ -18,7 +18,10 @@ function main() {
  */
 function datepickerInit() {
     let elems = document.querySelectorAll('.datepicker');
-    let instances = M.Datepicker.init(elems);
+    let datePickerOptions = {
+        format: "dd/mm/yyyy"
+    };
+    let instances = M.Datepicker.init(elems, datePickerOptions);
 }
 
 /**
@@ -40,7 +43,7 @@ function registerFormInit() {
 function showPatient(status) {
     console.log("status: " + status);
     let peselPanel = document.getElementById("pesel-panel");
-    let dataUrodzeniaPanel = document.getElementById("date-od-birth-panel");
+    let dataUrodzeniaPanel = document.getElementById("date-of-birth-panel");
     let specjalizacjaPanel = document.getElementById("specialization-panel");
     if (status) {
         peselPanel.style.display = "inline";
@@ -64,12 +67,12 @@ function register() {
     submittedData.phoneNumber = document.getElementById("phone-number").value;
     // Todo: Check if passwords are equal
     submittedData.password = document.getElementById("password").value;
-    
+
     if (document.getElementById("radio-patient").checked) {
         console.log("Pacjent");
         submittedData.role = "PATIENT"
         submittedData.citizenId = document.getElementById("pesel").value;
-        submittedData.password = document.getElementById("date-of-birth").value;
+        submittedData.dateOfBirth = convertDateToTimestamp(document.getElementById("date-of-birth").value);
     } else if (document.getElementById("radio-doctor").checked) {
         console.log("Lekarz");
         submittedData.role = "DOCTOR"
@@ -78,20 +81,29 @@ function register() {
         console.log("brak roli");
     }
 
-
-    // let selectedOption = document.getElementById('form-register')['radio-group-rola'].value;
-    // console.log(selectedOption);
-
     console.log(submittedData);
     if (!validateFormInput(submittedData)) {
         // Data is not valid, show message to user
         return;
     }
 
-
-
-
-
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://" + window.location.host + "/api/register", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.addEventListener('load', function () {
+        if (this.status === 200) {
+            const response = JSON.parse(this.responseText);
+            console.log(response);
+            if (response.error) {
+                alert("Niepoprawne dane");
+            } else {
+                alert(response);
+                // ToDo: redirect to login after 5 secs
+                top.location.replace("http://" + window.location.host + "/login.html");
+            }
+        }
+    });
+    xhr.send(JSON.stringify(submittedData));
 }
 
 /**
@@ -99,4 +111,13 @@ function register() {
  */
 function validateFormInput(inputJson) {
     return true;
+}
+
+/**
+ * Convert date to unix timestamp
+ * @param {*} strDate - date in format: yyyy/mm/dd
+ */
+function convertDateToTimestamp(strDate) {
+    var dateUnix = Date.parse(strDate.split("/").reverse().join("/"));
+    return dateUnix / 1000;
 }
