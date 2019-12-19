@@ -25,9 +25,9 @@ function datepickerInit() {
  * Funkcja inicjująca formularz rejestracyjny
  */
 function registerFormInit() {
-    let buttonPacjent = document.getElementById("pacjent");
+    let buttonPacjent = document.getElementById("radio-patient");
     buttonPacjent.onclick = () => showPatient(true);
-    let buttonLekarz = document.getElementById("lekarz");
+    let buttonLekarz = document.getElementById("radio-doctor");
     buttonLekarz.onclick = () => showPatient(false);
 }
 
@@ -39,9 +39,9 @@ function registerFormInit() {
  */
 function showPatient(status) {
     console.log("status: " + status);
-    let peselPanel = document.getElementById("pesel_panel");
-    let dataUrodzeniaPanel = document.getElementById("data_urodzenia_panel");
-    let specjalizacjaPanel = document.getElementById("specjalizacja_panel");
+    let peselPanel = document.getElementById("pesel-panel");
+    let dataUrodzeniaPanel = document.getElementById("date-od-birth-panel");
+    let specjalizacjaPanel = document.getElementById("specialization-panel");
     if (status) {
         peselPanel.style.display = "inline";
         dataUrodzeniaPanel.style.display = "inline";
@@ -58,22 +58,22 @@ function showPatient(status) {
  */
 function register() {
     const submittedData = {};
-    submittedData.firstName = document.getElementById("imie").value;
-    submittedData.lastName = document.getElementById("nazwisko").value;
+    submittedData.firstName = document.getElementById("first-name").value;
+    submittedData.lastName = document.getElementById("last-name").value;
     submittedData.mail = document.getElementById("email").value;
-    submittedData.phoneNumber = document.getElementById("numer_telefonu").value;
-    submittedData.password = document.getElementById("haslo").value;
+    submittedData.phoneNumber = document.getElementById("phone-number").value;
+    // Todo: Check if passwords are equal
+    submittedData.password = document.getElementById("password").value;
     
-    // If z checkiem wybranej roli -> uzupelnienie reszty
-    if (document.getElementById("pacjent").checked) {
+    if (document.getElementById("radio-patient").checked) {
         console.log("Pacjent");
         submittedData.role = "PATIENT"
         submittedData.citizenId = document.getElementById("pesel").value;
-        submittedData.password = document.getElementById("kalendarz_urodziny").value;
-    } else if (document.getElementById("lekarz").checked) {
+        submittedData.password = document.getElementById("date-of-birth").value;
+    } else if (document.getElementById("radio-doctor").checked) {
         console.log("Lekarz");
         submittedData.role = "DOCTOR"
-        submittedData.specialization = document.getElementById("specjalizacja").value;
+        submittedData.specialization = document.getElementById("specialization").value;
     } else {
         console.log("brak roli");
     }

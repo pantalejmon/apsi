@@ -16,15 +16,15 @@
 
   <main>
     <div class="row" style=" padding: 32px 48px 0px 48px; border: 1px;">
-      <form id="form-register"" class="col s12">
+      <form id="form-register"" class=" col s12">
         <div class="row">
           <div class="input-field col s6">
-            <input id="imie" type="text" class="validate">
-            <label for="imie">Imię</label>
+            <input id="first-name" type="text" class="validate">
+            <label for="first-name">Imię</label>
           </div>
           <div class="input-field col s6">
-            <input id="nazwisko" type="text" class="validate">
-            <label for="nazwisko">Nazwisko</label>
+            <input id="last-name" type="text" class="validate">
+            <label for="last-name">Nazwisko</label>
           </div>
         </div>
         <div class="row">
@@ -35,55 +35,55 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="numer_telefonu" type="number" class="validate">
-            <label for="numer_telefonu">Numer telefonu</label>
+            <input id="phone-number" type="number" class="validate">
+            <label for="phone-number">Numer telefonu</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="haslo" type="password" class="validate">
-            <label for="haslo">Hasło</label>
+            <input id="password" type="password" class="validate">
+            <label for="password">Hasło</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="powtorz_haslo" type="password" class="validate">
-            <label for="powtorz_haslo">Powtórz hasło</label>
+            <input id="password-repeat" type="password" class="validate">
+            <label for="password-repeat">Powtórz hasło</label>
           </div>
         </div>
         <div class="row">
           <div class="row">
             <label for="konto">Typ konta</label>
-            <form id="radio-group-rola" action="#">
+            <form id="radio-group-role" action="#">
               <p>
                 <label>
-                  <input id="pacjent" name="typ_konta" type="radio" />
+                  <input id="radio-patient" name="accout-role" type="radio" />
                   <span>Pacjent</span>
                 </label>
               </p>
               <p>
                 <label>
-                  <input id="lekarz" name="typ_konta" type="radio" />
+                  <input id="radio-doctor" name="accout-role" type="radio" />
                   <span>Lekarz</span>
                 </label>
               </p>
             </form>
           </div>
         </div>
-        <div class="input-field col s12" id="pesel_panel" style="display: none;">
+        <div class="input-field col s12" id="pesel-panel" style="display: none;">
           <input id="pesel" type="text" class="validate">
           <label for="pesel">Pesel</label>
         </div>
-        <div class="input-field col s12" id="data_urodzenia_panel" style="display: none;">
-          <input id="kalendarz_urodziny" type="text" class="datepicker">
-          <label for="kalendarz_urodziny">Data urodzenia</label>
+        <div class="input-field col s12" id="date-of-birth-panel" style="display: none;">
+          <input id="date-of-birth" type="text" class="datepicker">
+          <label for="date-of-birth">Data urodzenia</label>
         </div>
-        <div class="input-field col s12" id="specjalizacja_panel" style="display: none">
-          <input id="specjalizacja" type="text" class="validate">
-          <label for="specjalizacja">Specjalizacja</label>
+        <div class="input-field col s12" id="specialization-panel" style="display: none">
+          <input id="specialization" type="text" class="validate">
+          <label for="specialization">Specjalizacja</label>
         </div>
         <button class="waves-effect waves-light btn center-align col s12 m8 push-m2 l8 push-l2 waves-light "
-              onclick="register()">Zarejestruj</button>
+          onclick="register()">Zarejestruj</button>
       </form>
     </div>
   </main>
