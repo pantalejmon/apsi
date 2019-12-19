@@ -99,7 +99,7 @@ function register() {
             } else {
                 alert(response);
                 // ToDo: redirect to login after 5 secs
-                top.location.replace("http://" + window.location.host + "/login.html");
+                //top.location.replace("http://" + window.location.host + "/login.html");
             }
         }
     });
