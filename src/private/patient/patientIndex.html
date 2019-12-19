@@ -46,8 +46,11 @@
             </div>
         </li>
 
-        <li id="patientProfile" class="active"><a href="patientProfile.html" target="iframe_a"
+        <li id="patientDahsboard" class="active"><a href="patientDashboard.html" target="iframe_a"
                 class="waves-effect sidenav-close">
+                Profil Pacjenta</a></li>
+
+        <li id="patientProfile"><a href="patientProfile.html" target="iframe_a" class="waves-effect sidenav-close">
                 Profil Pacjenta</a></li>
         <li id="registerVisit"><a href="registerVisit.html" target="iframe_a" class="waves-effect sidenav-close">
                 Zarejestruj Wizytę</a></li>
@@ -60,10 +63,54 @@
 
     <!-- OKNO GŁÓWNE -->
     <main style="height: Calc(100%-100px)">
-        <iframe src="patientDashboard.html" name="iframe_a" frameborder="0"
-            style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+        <div id="dashboard" class="col s12">
+            <iframe src="patientDashboard.html" name="iframe_a" frameborder="0"
+                style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+        </div>
+        <div id="profile" class="col s12">
+            <iframe src="patientProfile.html" name="iframe_a" frameborder="0"
+                style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+        </div>
+        <div id="visit" class="col s12">
+            <iframe src="yourVisits.html" name="iframe_a" frameborder="0"
+                style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+        </div>
+        <div id="contact" class="col s12">
+            <iframe src="patientDashboard.html" name="iframe_a" frameborder="0"
+                style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+        </div>
     </main>
 
+    <footer class="page-footer blue lighten-2 ">
+
+        <div class="row" style="margin-bottom:0px; margin-top: -10px!important; ">
+            <div class="col s12" style="padding-left:0px!important;padding-right:0px!important;">
+                <ul class="tabs transparent tabs-fixed-width blue lighten-2 white-text">
+                    <li class="tab col s3 white-text">
+                        <a href="#dashboard" class="active white-text">
+                            <i class="material-icons">dashboard</i>
+                        </a>
+                    </li>
+                    <li class="tab col s3">
+                        <a href="#profile" class="white-text">
+                            <i class="material-icons">account_circle</i>
+                        </a>
+                    </li>
+                    <li class="tab col s3">
+                        <a href="#visit" class="white-text">
+                            <i class="material-icons">collections_bookmark</i>
+                        </a>
+                    </li>
+                    <li class="tab col s3">
+                        <a href="#contact" class="white-text">
+                            <i class="material-icons">chat_bubble</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </footer>
     <script src="js/materialize.min.js"></script>
     <script src="js/patientIndexScript.js"></script>
 </body>

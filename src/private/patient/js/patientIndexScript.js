@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 function main() {
     sidenavInit();
+    M.AutoInit();
+    let tabs = document.querySelectorAll('.tabs')
+    for (let i = 0; i < tabs.length; i++) {
+        M.Tabs.init(tabs[i], { swipeable: true, responsiveThreshold: 800 });
+    }
 }
 
 function sidenavInit() {

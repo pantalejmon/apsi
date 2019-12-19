@@ -6,9 +6,7 @@
  * Made By MaterializeCSS.com
  */
 
-.icon-block {
-  padding: 0 15px;
-}
+
 .icon-block .material-icons {
 	font-size: inherit;
 }
@@ -19,7 +17,7 @@ main {
 
 body {
   display: flex;
-  min-height: 100%;
+  min-height: 100vh;
   flex-direction: column;
 }
 html, body {
@@ -45,4 +43,38 @@ header {
   background-color: #FFF;
   margin-top: 0px;
   box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+.tabs .indicator {
+  height: 5px;
+  background-color: #fff;
+
+} 
+
+
+
+
+.tabs .tab a:hover {
+  background-color:#64b5f6;
+} /*Text color on hover*/
+
+.tabs .tab a.active {
+  background-color:#64b5f6 ;
+} /*Background and text color when a tab is active*/
+
+
+.tabs .tab a {
+  color: rgba(38, 166, 154, 0.7);
+  /*Custom Text Color*/
+}
+
+.tabs .tab a:hover {
+  color:#26a69a;
+  /*Custom Color On Hover*/
+}
+
+.tabs .tab a:focus.active {
+  /*Custom Text Color While Active*/
+  background-color: #64b5f6
+  /*Custom Background Color While Active*/
 }
