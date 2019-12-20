@@ -1,3 +1,4 @@
+
 /**
  * Tutaj nie ruszamy
  */
@@ -61,10 +62,10 @@ function showPatient(status) {
  */
 function register() {
     const submittedData = {};
-    submittedData.firstName = document.getElementById("first-name").value;
-    submittedData.lastName = document.getElementById("last-name").value;
-    submittedData.mail = document.getElementById("email").value;
-    submittedData.phoneNumber = document.getElementById("phone-number").value;
+    submittedData.firstName = document.getElementById("first-name").value.trim();
+    submittedData.lastName = document.getElementById("last-name").value.trim();
+    submittedData.mail = document.getElementById("email").value.trim();
+    submittedData.phoneNumber = document.getElementById("phone-number").value.trim();
     // Todo: Check if passwords are equal
     submittedData.password = document.getElementById("password").value;
 
@@ -76,17 +77,18 @@ function register() {
     } else if (document.getElementById("radio-doctor").checked) {
         console.log("Lekarz");
         submittedData.role = "DOCTOR"
-        submittedData.specialization = document.getElementById("specialization").value;
+        submittedData.specialization = document.getElementById("specialization").value.trim();
     } else {
         console.log("brak roli");
     }
 
     console.log(submittedData);
     if (!validateFormInput(submittedData)) {
-        // Data is not valid, show message to user
+        // Data is not valid, don't send it
         return;
     }
 
+    // Send data to sever and react to responses
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "http://" + window.location.host + "/api/register", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -110,10 +112,123 @@ function register() {
 
 /**
  * Function checks if form data is valid before sending it to server
+ * @param inputJson contains data inserted by user in form
  */
 function validateFormInput(inputJson) {
-    // ToDo: implementation - Oskar
+    // Validate fields shared by patient and doctor
+    if (!validateName(inputJson.firstName)) {
+        alert("Incorrect first name!");
+        return false;
+    } else if (!validateName(inputJson.lastName)) {
+        alert("Incorrect last name!");
+        return false;
+    } else if (!validateEmail(inputJson.mail)) {
+        alert("Incorrect email!");
+        return false;
+    } else if (!validatePhoneNumber(inputJson.phoneNumber)) {
+        alert("Incorrect phone number!");
+        return false;
+    } else if (!arePasswordsEqual()) {
+        alert("Passwords don't match!");
+        return false;
+    } else if (!validatePassword(inputJson.password)) {
+        alert("Password invalid!");
+        return false;
+    } else if (!validateRole(inputJson.role)) {
+        alert("Select a Role!");
+        return false;
+    }
+    // validate role
+    if (inputJson.role === "PATIENT") {
+        if (!validateCitizenId(inputJson.citizenId)) {
+            alert("Invalid PESEL!");
+            return false;
+        } else if (!validateDateOfBirth(inputJson.dateOfBirth)) {
+            alert("Invalid date of birth!");
+            return false;
+        }
+    } else if (inputJson.role === "DOCTOR") {
+        if (!validateSpecialization(inputJson.specialization)) {
+            alert("Invalid specialization!");
+            return false;
+        }
+    }
+
     return true;
+}
+
+/**
+ * Function checks if name is valid
+ * @param name as a string
+ */
+function validateName(name) {
+    let regexNoNumbers = /\D{1,20}/;
+    if (!name || !name.trim() || !regexNoNumbers.test(name)) {
+        return false;
+    } else return true;
+}
+
+//ToDo: further validation
+function validateEmail(email) {
+    if (!email || !email.trim()) {
+        return false;
+    } else return true;
+}
+
+/**
+ * Function checks if phone number is valid
+ * @param phoneNumber as a string
+ */
+function validatePhoneNumber(phoneNumber) {
+    let regexLetters = /[a-z]+/g;
+    if (!phoneNumber || !phoneNumber.trim() || regexLetters.test(phoneNumber)) {
+        return false;
+    } else return true;
+}
+
+// Check if inserted password and repeated password match
+function arePasswordsEqual() {
+    let password = document.getElementById("password").value;
+    let passwordRepeat = document.getElementById("password-repeat").value;
+    if (password !== passwordRepeat) {
+        return false;
+    } else return true
+}
+
+function validatePassword(password) {
+    if (!password || !password.trim()) {
+        return false;
+    } else return true;
+}
+
+/**
+ * Function checks if role is valid
+ * @param role as a string
+ */
+function validateRole(role) {
+    if (role === "PATIENT" || role === "DOCTOR") {
+        return true;
+    } else return false;
+}
+
+function validateSpecialization(specialization) {
+    if (!specialization || !specialization.trim()) {
+        return false;
+    } else return true;
+}
+
+// Function checks if citizenId (PESEL) contains only digits (11)
+function validateCitizenId(citizenId) {
+    let onlyDigitsRegex = /^\d{11}$/;
+    if (!citizenId || !citizenId.trim() || !onlyDigitsRegex.test(citizenId)) {
+        return false;
+    } else return true;
+}
+
+function validateDateOfBirth(dateOfBirth) {
+    if (!dateOfBirth || isNaN(dateOfBirth)) {
+        return false;
+    } else return true;
 }
 
 /**
