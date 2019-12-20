@@ -16,6 +16,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc",
+    "build-clean": "npm run clean && tsc",
     "postinstall": "npm run build",
     "go": "tsc && node dist/index.js",
     "dev": "nodemon",
