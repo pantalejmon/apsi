@@ -15,43 +15,45 @@
 <body>
 
   <main>
-    <div class="row" style=" padding: 32px 48px 0px 48px; border: 1px;">
-      <form id="form-register"" class=" col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="first-name" type="text" class="validate" required="true" aria-required="true">
-            <label for="first-name">Imię</label>
+    <div class="col card hoverable s10 pull-s1 m8 pull-m2 l8 pull-l2" style="padding:16px; margin-top: 24px;">
+      <div class="row" style=" padding: 32px 48px 0px 48px; border: 1px;">
+        <form id="form-register"" class=" col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <i class="material-icons prefix">account_circle</i>
+              <input id="first-name" type="text" class="validate" required="true" aria-required="true">
+              <label for="first-name">Imię</label>
+            </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">account_circle</i>
+              <input id="last-name" type="text" class="validate" required="true" aria-required="true">
+              <label for="last-name">Nazwisko</label>
+            </div>
           </div>
-          <div class="input-field col s6">
-            <input id="last-name" type="text" class="validate" required="true" aria-required="true">
-            <label for="last-name">Nazwisko</label>
+          <div class="row">
+            <div class="input-field col s6">
+              <i class="material-icons prefix">email</i>
+              <input id="email" type="email" class="validate" required="true" aria-required="true">
+              <label for="email">Email</label>
+            </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">phone</i>
+              <input id="phone-number" type="number" class="validate" required="true" aria-required="true">
+              <label for="phone-number">Numer telefonu</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="email" type="email" class="validate" required="true" aria-required="true"> 
-            <label for="email">Email</label>
+          <div class="row">
+            <div class="input-field col s6">
+              <i class="material-icons prefix">https</i>
+              <input id="password" type="password" class="validate" required="true" aria-required="true">
+              <label for="password">Hasło</label>
+            </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">https</i>
+              <input id="password-repeat" type="password" class="validate" required="true" aria-required="true">
+              <label for="password-repeat">Powtórz hasło</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="phone-number" type="number" class="validate" required="true" aria-required="true">
-            <label for="phone-number">Numer telefonu</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password" type="password" class="validate" required="true" aria-required="true">
-            <label for="password">Hasło</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password-repeat" type="password" class="validate" required="true" aria-required="true">
-            <label for="password-repeat">Powtórz hasło</label>
-          </div>
-        </div>
-        <div class="row">
           <div class="row">
             <label for="konto">Typ konta</label>
             <form id="radio-group-role" action="#" aria-required="true">
@@ -69,22 +71,29 @@
               </p>
             </form>
           </div>
-        </div>
-        <div class="input-field col s12" id="pesel-panel" style="display: none;">
-          <input id="pesel" type="text" class="validate">
-          <label for="pesel">Pesel</label>
-        </div>
-        <div class="input-field col s12" id="date-of-birth-panel" style="display: none;">
-          <input id="date-of-birth" type="text" class="datepicker">
-          <label for="date-of-birth">Data urodzenia</label>
-        </div>
-        <div class="input-field col s12" id="specialization-panel" style="display: none">
-          <input id="specialization" type="text" class="validate">
-          <label for="specialization">Specjalizacja</label>
-        </div>
-        <button class="waves-effect waves-light btn center-align col s12 m8 push-m2 l8 push-l2 waves-light "
-          onclick="register()">Zarejestruj</button>
-      </form>
+          <div class="row">
+            <div class="input-field col s6" id="pesel-panel" style="display: none;">
+              <i class="material-icons prefix">assignment_ind</i>
+              <input id="pesel" type="text" class="validate">
+              <label for="pesel">Pesel</label>
+            </div>
+            <div class="input-field col s6" id="date-of-birth-panel" style="display: none;">
+              <i class="material-icons prefix">event</i>
+              <input id="date-of-birth" type="text" class="datepicker">
+              <label for="date-of-birth">Data urodzenia</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6" id="specialization-panel" style="display: none">
+              <i class="material-icons prefix">assignment</i>
+              <input id="specialization" type="text" class="validate">
+              <label for="specialization">Specjalizacja</label>
+            </div>
+          </div>
+          <button class="waves-effect waves-light btn center-align col s12 m8 push-m2 l8 push-l2 waves-light blue"
+            onclick="register()">Zarejestruj</button>
+        </form>
+      </div>
     </div>
   </main>
   </header>
