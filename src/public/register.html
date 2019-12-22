@@ -21,13 +21,15 @@
           <div class="row">
             <div class="input-field col s6">
               <i class="material-icons prefix">account_circle</i>
-              <input id="first-name" type="text" class="validate" required="true" aria-required="true">
+              <input id="first-name" type="text" class="validate" required="true" aria-required="true" minlength="2">
               <label for="first-name">Imię</label>
+              <span class="helper-text" data-error="Nieprawidłowe dane"></span>
             </div>
             <div class="input-field col s6">
               <i class="material-icons prefix">account_circle</i>
-              <input id="last-name" type="text" class="validate" required="true" aria-required="true">
+              <input id="last-name" type="text" class="validate" required="true" aria-required="true" minlength="2">
               <label for="last-name">Nazwisko</label>
+              <span class="helper-text" data-error="Nieprawidłowe dane"></span>
             </div>
           </div>
           <div class="row">
@@ -35,23 +37,29 @@
               <i class="material-icons prefix">email</i>
               <input id="email" type="email" class="validate" required="true" aria-required="true">
               <label for="email">Email</label>
+              <span class="helper-text" data-error="Nieprawidłowy adres email"></span>
             </div>
             <div class="input-field col s6">
               <i class="material-icons prefix">phone</i>
-              <input id="phone-number" type="number" class="validate" required="true" aria-required="true">
+              <input id="phone-number" type="number" class="validate" required="true" aria-required="true"
+                minlength="8">
               <label for="phone-number">Numer telefonu</label>
+              <span class="helper-text" data-error="Nieprawidłowy numer telefonu"></span>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s6">
               <i class="material-icons prefix">https</i>
-              <input id="password" type="password" class="validate" required="true" aria-required="true">
+              <input id="password" type="password" class="validate" required="true" aria-required="true" minlength="6">
               <label for="password">Hasło</label>
+              <span class="helper-text" data-error="Nieprawidłowe hasło"></span>
             </div>
             <div class="input-field col s6">
               <i class="material-icons prefix">https</i>
-              <input id="password-repeat" type="password" class="validate" required="true" aria-required="true">
+              <input id="password-repeat" type="password" class="validate" required="true" aria-required="true"
+                minlength="6">
               <label for="password-repeat">Powtórz hasło</label>
+              <span class="helper-text" data-error="Nieprawidłowe hasło"></span>
             </div>
           </div>
           <div class="row">
@@ -59,13 +67,13 @@
             <form id="radio-group-role" action="#" aria-required="true">
               <p>
                 <label>
-                  <input id="radio-patient" name="accout-role" type="radio" />
+                  <input id="radio-patient" name="accout-role" type="radio" class="with-gap" />
                   <span>Pacjent</span>
                 </label>
               </p>
               <p>
                 <label>
-                  <input id="radio-doctor" name="accout-role" type="radio" />
+                  <input id="radio-doctor" name="accout-role" type="radio" class="with-gap" />
                   <span>Lekarz</span>
                 </label>
               </p>
@@ -74,8 +82,9 @@
           <div class="row">
             <div class="input-field col s6" id="pesel-panel" style="display: none;">
               <i class="material-icons prefix">assignment_ind</i>
-              <input id="pesel" type="text" class="validate">
+              <input id="pesel" type="text" class="validate" minlength="11" maxlength="11">
               <label for="pesel">Pesel</label>
+              <span class="helper-text" data-error="Nieprawidłowy numer pesel">Numer pesel składa się z 11 cyfr</span>
             </div>
             <div class="input-field col s6" id="date-of-birth-panel" style="display: none;">
               <i class="material-icons prefix">event</i>
@@ -86,8 +95,9 @@
           <div class="row">
             <div class="input-field col s6" id="specialization-panel" style="display: none">
               <i class="material-icons prefix">assignment</i>
-              <input id="specialization" type="text" class="validate">
+              <input id="specialization" type="text" class="validate" minlength="2">
               <label for="specialization">Specjalizacja</label>
+              <span class="helper-text" data-error="Nieprawidłowa specjalizacja"></span>
             </div>
           </div>
           <button class="waves-effect waves-light btn center-align col s12 m8 push-m2 l8 push-l2 waves-light blue"
