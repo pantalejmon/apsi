@@ -9,8 +9,9 @@
 .icon-block {
   padding: 0 15px;
 }
+
 .icon-block .material-icons {
-	font-size: inherit;
+  font-size: inherit;
 }
 
 main {
@@ -22,21 +23,32 @@ body {
   min-height: 100%;
   flex-direction: column;
 }
-html, body {
+
+html,
+body {
   padding: 0;
   margin: 0;
 }
 
-header, main, footer  {
+header,
+main,
+footer {
   padding-left: 300px;
 }
 
 @media only screen and (max-width : 992px) {
-  header, main, footer{
+
+  header,
+  main,
+  footer {
     padding-left: 0;
   }
 }
-html, body { height: 100%; }
+
+html,
+body {
+  height: 100%;
+}
 
 header {
   display: block;
@@ -45,4 +57,15 @@ header {
   background-color: #FFF;
   margin-top: 0px;
   box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+.promo {
+  width: 100%;
+}
+
+.promo i {
+  margin: 30px 0;
+  color: #2196f3;
+  font-size: 6rem;
+  display: block
 }
