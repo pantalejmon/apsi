@@ -22,13 +22,16 @@
               <h4 class="center">Logowanie</h4>
               <div class="input-field col s12">
                 <i class="material-icons prefix">account_circle</i>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" class="validate" required="true" aria-required="true">
                 <label for="email">Wprowadź adres e-mail</label>
+                <span class="helper-text" data-error="Nieprawidłowy adres email"></span>
               </div>
               <div class="input-field col s12 ">
                 <i class="material-icons prefix">https</i>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" class="validate" required="true"
+                  aria-required="true" minlength="4">
                 <label for="password">Wprowadź hasło</label>
+                <span class="helper-text" data-error="Hasło jest za krótkie"></span>
               </div>
             </div>
             <button class="waves-effect waves-light btn center-align col s12 m8 push-m2 l8 push-l2 waves-light blue"
