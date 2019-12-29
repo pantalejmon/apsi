@@ -30,7 +30,11 @@
                 <a href="#" data-target="slide-out" class="sidenav-trigger">
                     <i class="material-icons white-text text-darken-4">menu</i>
                 </a>
-
+                <ul id="nav-name-surname" class="right down">
+                    <li>
+                        <a href="patientProfile" class="link-to-profile">Jesteś zalogowany jako ...  tu imie i nazwisko </a>
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>
@@ -42,22 +46,24 @@
                 <div class="background ">
                     <img src="images/doctor.jpg" alt="logo" img style=' margin: 0px 0px; width: 100%;'>
                 </div>
-                <a href="#email"><span class="white-text email">Tu mail pacjenta po zalogowaniu</span></a>
             </div>
         </li>
 
         <li id="patientDahsboard" class="active"><a href="patientDashboard.html" target="iframe_a"
-                class="waves-effect sidenav-close">
-                Profil Pacjenta</a></li>
+                class="waves-effect sidenav-close" onclick="changeActiveMenuItem('patientDahsboard');">
+                Strona Główna</a></li>
 
-        <li id="patientProfile"><a href="patientProfile.html" target="iframe_a" class="waves-effect sidenav-close">
+        <li id="patientProfile"><a href="patientProfile.html" target="iframe_a" class="waves-effect sidenav-close" 
+            onclick="changeActiveMenuItem('patientProfile');">
                 Profil Pacjenta</a></li>
-        <li id="registerVisit"><a href="registerVisit.html" target="iframe_a" class="waves-effect sidenav-close">
+        <li id="registerVisit"><a href="registerVisit.html" target="iframe_a" class="waves-effect sidenav-close"
+            onclick="changeActiveMenuItem('registerVisit');">
                 Zarejestruj Wizytę</a></li>
-        <li id="visits"><a href="yourVisits.html" target="iframe_a" class="waves-effect sidenav-close">
+        <li id="visits"><a href="yourVisits.html" target="iframe_a" class="waves-effect sidenav-close"
+            onclick="changeActiveMenuItem('visits');">
                 Twoje wizyty</a></li>
         <li id="contactWithDoctor"><a href="contactWithDoctor.html" target="iframe_a"
-                class="waves-effect sidenav-close">
+                class="waves-effect sidenav-close" onclick="changeActiveMenuItem('contactWithDoctor');">
                 Skontaktuj się z lekarzem</a></li>
     </ul>
 
