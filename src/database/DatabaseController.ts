@@ -6,11 +6,14 @@ import Doctor from './entity/Doctor';
 import Credentials from '../config/Credentials';
 import Server from '../api/Server';
 import { Appointment } from './entity/Appointment';
+import PasswordTokenService from './services/PasswordTokenService';
+import PasswordToken from './entity/PasswordToken';
 export default class DatabaseController {
     private connection: Connection
     private patientRepository: Repository<Patient>;
     private doctorRepository: Repository<Doctor>;
     private appointmentRepository: Repository<Appointment>;
+    private passwordToken: PasswordTokenService;
 
     constructor(owner: Server) {
         createConnection({
@@ -34,6 +37,7 @@ export default class DatabaseController {
             this.patientRepository = getRepository(Patient);
             this.doctorRepository = getRepository(Doctor);
             this.appointmentRepository = getRepository(Appointment);
+            this.passwordToken = new PasswordTokenService(getRepository(PasswordToken), this);
             owner.apiInit(this);
             owner.serverStart();
             console.log("Uruchomiono mechanizm sesji");

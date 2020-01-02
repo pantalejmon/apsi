@@ -27,6 +27,8 @@ export default class UserController {
         this.deleteDoctorByEmail = this.deleteDoctorByEmail.bind(this);
     }
 
+    /*******************DOTYCZĄCE API*************/
+
     public async login(req: Request, res: Response): Promise<void> {
         res.send({ token: req.session.token, role: req.session.role });
 
@@ -108,16 +110,6 @@ export default class UserController {
         }
     }
 
-    private async savePatient(patient: Patient) {
-        const repository = this.dbController.getPatientRepository();
-        await repository.save(patient);
-    }
-
-    private async saveDoctor(doctor: Doctor) {
-        const repository = this.dbController.getDoctorRepository();
-        await repository.save(doctor)
-    }
-
     public async staticDashboard(req: Request, res: Response): Promise<void> {
         // tslint:disable-next-line: triple-equals
         if (req.session.role == Role.PATIENT) {
@@ -187,10 +179,37 @@ export default class UserController {
         else res.send({ error: Errors.WRONG_CREDENTIALS })
     }
 
+    /*************POMOCNICZE ***************************/
+
+    /**
+     * 
+     * @param patient 
+     */
+    private async savePatient(patient: Patient) {
+        const repository = this.dbController.getPatientRepository();
+        await repository.save(patient);
+    }
+
+    /**
+     * 
+     * @param doctor 
+     */
+    private async saveDoctor(doctor: Doctor) {
+        const repository = this.dbController.getDoctorRepository();
+        await repository.save(doctor)
+    }
+
+    /**
+     * 
+     */
     public generateToken(): string {
         return crypto.randomBytes(64).toString('hex');
     }
 
+    /**
+     * 
+     * @param citizenId 
+     */
     private isCitizenIdValid(citizenId: string): boolean {
         let onlyDigitsRegex = /^\d{11}$/;
         if (!citizenId ||
@@ -201,12 +220,20 @@ export default class UserController {
         } else return true;
     }
 
+    /**
+     * 
+     * @param dateOfBirth 
+     */
     private isDateOfBirthValid(dateOfBirth: number): boolean {
         if (isNaN(dateOfBirth)) {
             return false;
         } else return true;
     }
 
+    /**
+     * 
+     * @param input 
+     */
     private isStringNotEmpty(input: string): boolean {
         if (!input ||
             !input.trim()) {
