@@ -61,5 +61,9 @@ header {
 }
 
 .table-navigation {
-    padding: 0 1rem;
+    padding: 2rem 1rem;
+}
+
+.table-navigation a {
+    cursor: pointer;
 }
