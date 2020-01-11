@@ -8,6 +8,7 @@ import express from "express"
 import User from '../../../database/entity/User';
 import crypto from "crypto";
 import MailController from '../../mail/MailController';
+import path from 'path';
 
 export default class UserController {
     private dbController: DatabaseController;
@@ -25,6 +26,9 @@ export default class UserController {
         this.getDoctorByEmail = this.getDoctorByEmail.bind(this);
         this.deletePatientByEmail = this.deletePatientByEmail.bind(this);
         this.deleteDoctorByEmail = this.deleteDoctorByEmail.bind(this);
+        this.passwordChangeRequest = this.passwordChangeRequest.bind(this);
+        this.passwordChangeLink = this.passwordChangeLink.bind(this);
+        this.passwordChange = this.passwordChange.bind(this);
     }
 
     /*******************DOTYCZĄCE API*************/
@@ -177,6 +181,39 @@ export default class UserController {
         const d = await this.dbController.getDoctorRepository().update({ registrationToken: token }, { isActive: true })
         if (p || d) res.send({ message: "Poprawna weryfikacja konta" });
         else res.send({ error: Errors.WRONG_CREDENTIALS })
+    }
+
+    public async passwordChangeRequest(req: Request, res: Response) {
+        const email = req.body.email;
+        let user: User =
+            await this.dbController.getPatientRepository().findOne({ where: { mail: email } }) ||
+            await this.dbController.getDoctorRepository().findOne({ where: { mail: email } });
+        if (user) {
+            this.dbController.getPasswordService().getToken(user.mail);
+            res.send({ message: "Mail send" })
+        }
+        else res.send({ error: Errors.WRONG_CREDENTIALS })
+    }
+
+    public async passwordChangeLink(req: Request, res: Response) {
+        const token = req.params.token;
+        const valid = await this.dbController.getPasswordService().checkToken(token)
+        if (!valid) {
+            res.send({ error: Errors.WRONG_CREDENTIALS })
+        } else {
+            req.session.userPassChange = await (await
+                this.dbController
+                    .getPasswordService()
+                    .getTokenUser(token))
+                .mail
+            res.sendFile(path.resolve("src/private/util/passwordForm.html"));
+        }
+    }
+    public async passwordChange(req: Request, res: Response) {
+        const pass = req.body.pass;
+        let email = req!.session!.userPassChange;
+        const status = await this.dbController.getPasswordService().changeUserPassword(email, pass);
+        res.redirect("/")
     }
 
     /*************POMOCNICZE ***************************/

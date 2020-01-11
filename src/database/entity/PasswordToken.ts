@@ -7,7 +7,7 @@ export default class PasswordToken {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column({ type: "timestamp" })
+    @Column({ type: 'bigint' })
     public endDate: number;
 
     @Column()

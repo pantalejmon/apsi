@@ -37,6 +37,9 @@ export default class Router {
         this.router.post(this.api + "login", this.authController.checkLoginAndPass, this.userController.login);
         this.router.post(this.api + "register", this.userController.signUp);
         this.router.get(this.api + "mailactivation/:token", this.userController.mailActivation);
+        this.router.post(this.api + "passchangerequest", this.userController.passwordChangeRequest);
+        this.router.get(this.api + "passchangelink/:token", this.userController.passwordChangeLink);
+        this.router.post(this.api + "passchange", this.userController.passwordChange);
 
         /**
          * Api dla zalogowanych

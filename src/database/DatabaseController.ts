@@ -13,7 +13,7 @@ export default class DatabaseController {
     private patientRepository: Repository<Patient>;
     private doctorRepository: Repository<Doctor>;
     private appointmentRepository: Repository<Appointment>;
-    private passwordToken: PasswordTokenService;
+    private passwordService: PasswordTokenService;
 
     constructor(owner: Server) {
         createConnection({
@@ -37,7 +37,7 @@ export default class DatabaseController {
             this.patientRepository = getRepository(Patient);
             this.doctorRepository = getRepository(Doctor);
             this.appointmentRepository = getRepository(Appointment);
-            this.passwordToken = new PasswordTokenService(getRepository(PasswordToken), this);
+            this.passwordService = new PasswordTokenService(getRepository(PasswordToken), this);
             owner.apiInit(this);
             owner.serverStart();
             console.log("Uruchomiono mechanizm sesji");
@@ -53,6 +53,7 @@ export default class DatabaseController {
     public getPatientRepository(): Repository<Patient> { return this.patientRepository; }
     public getDoctorRepository(): Repository<Doctor> { return this.doctorRepository; }
     public getAppointmentRepository(): Repository<Appointment> { return this.appointmentRepository; }
+    public getPasswordService(): PasswordTokenService { return this.passwordService }
 
 
 }
