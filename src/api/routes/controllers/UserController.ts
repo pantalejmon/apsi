@@ -29,6 +29,7 @@ export default class UserController {
         this.passwordChangeRequest = this.passwordChangeRequest.bind(this);
         this.passwordChangeLink = this.passwordChangeLink.bind(this);
         this.passwordChange = this.passwordChange.bind(this);
+        this.getMyInfo = this.getMyInfo.bind(this)
     }
 
     /*******************DOTYCZĄCE API*************/
@@ -45,6 +46,22 @@ export default class UserController {
 
     public async getMyRole(req: Request, res: Response): Promise<void> {
         res.status(200).send({ role: req.session.role });
+    }
+
+    public async getMyInfo(req: Request, res: Response): Promise<void> {
+        let me: User;
+        switch (req.session.role) {
+            case Role.DOCTOR:
+                me = await this.dbController.getDoctorRepository().findOne({ where: { email: req.session.email } });
+                break;
+            case Role.PATIENT:
+                me = await this.dbController.getPatientRepository().findOne({ where: { email: req.session.email } });
+                break;
+            default:
+                break;
+        }
+        if (me) res.send(me);
+        else res.send({ error: Errors.PERMISSION_DENIED })
     }
 
     public async signUp(req: Request, res: Response): Promise<void> {
@@ -139,8 +156,8 @@ export default class UserController {
 
     // ToDo: check if request.params.email is OK
     public async getPatientByEmail(req: Request, res: Response) {
-        const repository = this.dbController.getPatientRepository();
-        const patient = repository.findOne(req.session.email);
+        const email = req.params.email;
+        const patient = this.dbController.getPatientRepository().findOne({ where: { email: email } });
 
         if (!patient) {
             res.status(404);
@@ -151,8 +168,8 @@ export default class UserController {
 
     // ToDo: check if request.params.email is OK
     public async getDoctorByEmail(req: Request, res: Response) {
-        const repository = this.dbController.getDoctorRepository();
-        const doctor = repository.findOne(req.session.email);
+        const email = req.params.email;
+        const doctor = this.dbController.getDoctorRepository().findOne({ where: { email: email } });
 
         if (!doctor) {
             res.status(404);
