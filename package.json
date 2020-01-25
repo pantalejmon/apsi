@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "brak",
   "license": "MIT",
-  "repository": "",
+  "repository": "https://github.com/pantalejmon/apsi",
   "author": "DM, AJ, JJ, MK, OM",
   "keywords": [
     "APSI"
@@ -30,7 +30,6 @@
   "devDependencies": {
     "@types/mocha": "^2.2.44",
     "@types/node": "^8.0.53",
-    "@types/express": "^4.17.0",
     "mocha": "^4.0.1",
     "tslint": "^5.8.0",
     "typescript": "^2.6.1"
@@ -74,5 +73,8 @@
     ],
     "exec": "npm run go",
     "ext": "ts"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.1.2"
   }
 }
