@@ -9,7 +9,6 @@ dist
 # MacOs files
 .DS_Store
 
-src/config/Credentials.ts
 ormconfig.json
 .vscode/tasks.json
 .idea
