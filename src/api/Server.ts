@@ -42,21 +42,12 @@ export default class Server {
     /**
      * Konfiguracja Api
      */
-    public apiInit(): void {
+    public apiInit(db: DatabaseController): void {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(helmet());
-        this.router = new Router(this.app, this.dbController)
-    }
-
-    /**
-     * Konfiguracja statycznego hostingu
-     */
-    public publicInit(): void {
-        this.app.use(express.static("./src/public", { index: false, extensions: ['html'] }));
-        this.app.get('/', function (req, res) {
-            res.redirect('/index');
-        });
+        this.dbController = db;
+        this.router = new Router(this.app, db);
     }
 
     /**
@@ -66,11 +57,8 @@ export default class Server {
         this.app.listen(Const.getPort(), () => console.log(`Serwer started on port: ` + Const.getPort()))
     }
 
-
-
     constructor() {
         this.app = express();
         this.databaseInit();
-
     }
 }

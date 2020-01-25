@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>System elektronicznej rejestracji pacjentów</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body>
+    <header>
+
+        <!-- OSTRZEŻENIE O BRAKU SKRYPTÓW -->
+        <noscript>
+            <div>
+                W celu obsługi aplikacji włącz obsługe skryptów
+            </div>
+        </noscript>
+
+        <!-- GÓRNA BELKA-->
+        <nav class="blue lighten-2">
+            <div class="nav-wrapper">
+                <span class="brand-logo center white-text text-darken-4">SERP
+                </span>
+                <a href="#" data-target="slide-out" class="sidenav-trigger">
+                    <i class="material-icons white-text text-darken-4">menu</i>
+                </a>
+                <ul id="nav-name-surname" class="right down">
+                    <li>
+                        <a href="patientProfile" class="link-to-profile">Jesteś zalogowany jako ...  tu imie i nazwisko </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MENU BOCZNE -->
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li>
+            <div class="user-view" style=' height: 200px;'>
+                <div class="background ">
+                    <img src="images/doctor.jpg" alt="logo" img style=' margin: 0px 0px; width: 100%;'>
+                </div>
+            </div>
+        </li>
+
+        <li id="patientDahsboard" class="active"><a href="patientDashboard.html" target="iframe_a"
+                class="waves-effect sidenav-close" onclick="changeActiveMenuItem('patientDahsboard');">
+                Strona Główna</a></li>
+
+        <li id="patientProfile"><a href="patientProfile.html" target="iframe_a" class="waves-effect sidenav-close" 
+            onclick="changeActiveMenuItem('patientProfile');">
+                Profil Pacjenta</a></li>
+        <li id="registerVisit"><a href="registerVisit.html" target="iframe_a" class="waves-effect sidenav-close"
+            onclick="changeActiveMenuItem('registerVisit');">
+                Zarejestruj Wizytę</a></li>
+        <li id="visits"><a href="yourVisits.html" target="iframe_a" class="waves-effect sidenav-close"
+            onclick="changeActiveMenuItem('visits');">
+                Twoje wizyty</a></li>
+        <li id="contactWithDoctor"><a href="contactWithDoctor.html" target="iframe_a"
+                class="waves-effect sidenav-close" onclick="changeActiveMenuItem('contactWithDoctor');">
+                Skontaktuj się z lekarzem</a></li>
+    </ul>
+
+    <!-- OKNO GŁÓWNE -->
+    <main style="height: Calc(100%-100px)">
+        <div id="dashboard" class="col s12">
+            <iframe src="patientDashboard.html" name="iframe_a" frameborder="0"
+                style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+        </div>
+        <div id="profile" class="col s12">
+            <iframe src="patientProfile.html" name="iframe_a" frameborder="0"
+                style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+        </div>
+        <div id="visit" class="col s12">
+            <iframe src="yourVisits.html" name="iframe_a" frameborder="0"
+                style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+        </div>
+        <div id="contact" class="col s12">
+            <iframe src="patientDashboard.html" name="iframe_a" frameborder="0"
+                style="display: block;  border: none; overflow:auto;  height: 100%; width:100%; margin: 0px 0px;"></iframe>
+        </div>
+    </main>
+
+    <footer class="page-footer blue lighten-2 ">
+
+        <div class="row" style="margin-bottom:0px; margin-top: -10px!important; ">
+            <div class="col s12" style="padding-left:0px!important;padding-right:0px!important;">
+                <ul class="tabs transparent tabs-fixed-width blue lighten-2 white-text">
+                    <li class="tab col s3 white-text">
+                        <a href="#dashboard" class="active white-text">
+                            <i class="material-icons">dashboard</i>
+                        </a>
+                    </li>
+                    <li class="tab col s3">
+                        <a href="#profile" class="white-text">
+                            <i class="material-icons">account_circle</i>
+                        </a>
+                    </li>
+                    <li class="tab col s3">
+                        <a href="#visit" class="white-text">
+                            <i class="material-icons">collections_bookmark</i>
+                        </a>
+                    </li>
+                    <li class="tab col s3">
+                        <a href="#contact" class="white-text">
+                            <i class="material-icons">chat_bubble</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </footer>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/patientIndexScript.js"></script>
+</body>
+
+</html>

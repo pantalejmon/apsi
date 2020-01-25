@@ -4,12 +4,11 @@ node_modules/
 npm-debug.log
 .nyc_output
 dist
-<<<<<<< HEAD
+
 
 # MacOs files
 .DS_Store
-=======
-src/config/Credentials.ts
+
 ormconfig.json
 .vscode/tasks.json
->>>>>>> develop
+.idea

@@ -1,0 +1,69 @@
+/* Custom Stylesheet */
+
+
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+    padding: 0 15px;
+}
+
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+body {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+header,
+main,
+footer {
+    padding-left: 300px;
+}
+
+@media only screen and (max-width: 992px) {
+    header,
+    main,
+    footer {
+        padding-left: 0;
+    }
+}
+
+html,
+body {
+    height: 100%;
+}
+
+header {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #FFF;
+    margin-top: 0px;
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+.table-navigation {
+    padding: 2rem 1rem;
+}
+
+.table-navigation a {
+    cursor: pointer;
+}
