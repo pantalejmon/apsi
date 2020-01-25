@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcryptjs';
 import DatabaseController from '../../../database/DatabaseController';
@@ -9,6 +10,7 @@ import User from '../../../database/entity/User';
 import crypto from "crypto";
 import MailController from '../../mail/MailController';
 import path from 'path';
+import {jsonIgnoreReplacer} from "json-ignore";
 
 export default class UserController {
     private dbController: DatabaseController;
@@ -29,7 +31,7 @@ export default class UserController {
         this.passwordChangeRequest = this.passwordChangeRequest.bind(this);
         this.passwordChangeLink = this.passwordChangeLink.bind(this);
         this.passwordChange = this.passwordChange.bind(this);
-        this.getMyInfo = this.getMyInfo.bind(this)
+        this.getMyInfo = this.getMyInfo.bind(this);
     }
 
     /*******************DOTYCZĄCE API*************/
@@ -60,7 +62,7 @@ export default class UserController {
             default:
                 break;
         }
-        if (me) res.send(me);
+        if (me) res.send(JSON.stringify(me, jsonIgnoreReplacer));
         else res.send({ error: Errors.PERMISSION_DENIED })
     }
 

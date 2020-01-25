@@ -53,11 +53,13 @@
     "helmet": "^3.21.2",
     "help": "^3.0.2",
     "http-status-codes": "^1.4.0",
+    "json-ignore": "^0.4.0",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^1.19.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.14.0",
+    "reflect-metadata": "^0.1.13",
     "sendmail": "^1.6.1",
     "typeorm": "^0.2.20",
     "typeorm-store": "^1.2.0"
