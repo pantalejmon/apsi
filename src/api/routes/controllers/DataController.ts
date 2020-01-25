@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import * as express from 'express';
 import DatabaseController from '../../../database/DatabaseController';
 import { Const } from '../../../config/Constants';

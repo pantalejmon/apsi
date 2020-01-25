@@ -1,14 +1,15 @@
-import { Request, Response, NextFunction } from 'express';
+import "reflect-metadata";
+import { Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 import DatabaseController from '../../../database/DatabaseController';
 import { Role, Errors } from '../../../database/util/Enums';
 import Patient from '../../../database/entity/Patient';
 import Doctor from '../../../database/entity/Doctor';
-import express from "express"
 import User from '../../../database/entity/User';
 import crypto from "crypto";
 import MailController from '../../mail/MailController';
 import path from 'path';
+import {jsonIgnoreReplacer} from "json-ignore";
 
 export default class UserController {
     private dbController: DatabaseController;
@@ -29,7 +30,7 @@ export default class UserController {
         this.passwordChangeRequest = this.passwordChangeRequest.bind(this);
         this.passwordChangeLink = this.passwordChangeLink.bind(this);
         this.passwordChange = this.passwordChange.bind(this);
-        this.getMyInfo = this.getMyInfo.bind(this)
+        this.getMyInfo = this.getMyInfo.bind(this);
     }
 
     /*******************DOTYCZĄCE API*************/
@@ -60,7 +61,7 @@ export default class UserController {
             default:
                 break;
         }
-        if (me) res.send(me);
+        if (me) res.send(JSON.parse(JSON.stringify(me, jsonIgnoreReplacer)));
         else res.send({ error: Errors.PERMISSION_DENIED })
     }
 
@@ -106,7 +107,7 @@ export default class UserController {
             newPatient.dateOfBirth = req.body.dateOfBirth;
             newPatient.registrationToken = this.generateToken();
             MailController.ActivationMail(newPatient);
-            this.savePatient(newPatient);
+            await this.savePatient(newPatient);
             res.status(200).send({ message: "Patient registered" });
             // tslint:disable-next-line: triple-equals
         } else if (req.body.role == Role.DOCTOR) {
@@ -124,7 +125,7 @@ export default class UserController {
             newDoctor.specialization = req.body.specialization;
             newDoctor.registrationToken = this.generateToken();
             MailController.ActivationMail(newDoctor);
-            this.saveDoctor(newDoctor);
+            await this.saveDoctor(newDoctor);
             res.status(200).send({ message: "Doctor registered" });
         } else {
             res.status(400).send({ error: "Invalid data" });
@@ -145,13 +146,13 @@ export default class UserController {
     public async getAllPatients(req: Request, res: Response) {
         const repository = this.dbController.getPatientRepository();
         const patients = await repository.find();
-        res.send(patients);
+        res.send(JSON.parse(JSON.stringify(patients, jsonIgnoreReplacer)));
     }
 
     public async getAllDoctors(req: Request, res: Response) {
         const repository = this.dbController.getDoctorRepository();
         const doctors = await repository.find();
-        res.send(doctors);
+        res.send(JSON.parse(JSON.stringify(doctors, jsonIgnoreReplacer)));
     }
 
     // ToDo: check if request.params.email is OK
@@ -175,27 +176,27 @@ export default class UserController {
             res.status(404);
             res.end();
             return;
-        } else res.send(doctor);
+        } else res.send(JSON.parse(JSON.stringify(doctor, jsonIgnoreReplacer)));
     }
 
     public async deletePatientByEmail(req: Request, res: Response) {
         const repository = this.dbController.getPatientRepository();
         const patientToDelete = await repository.findOne({ mail: req.body.mail });
         await repository.remove(patientToDelete);
-        res.send(patientToDelete);
+        res.send(JSON.parse(JSON.stringify(patientToDelete, jsonIgnoreReplacer)));
     }
 
     public async deleteDoctorByEmail(req: Request, res: Response) {
         const repository = this.dbController.getDoctorRepository();
         const doctorToDelete = await repository.findOne({ mail: req.body.mail });
         await repository.remove(doctorToDelete);
-        res.send(doctorToDelete);
+        res.send(JSON.parse(JSON.stringify(doctorToDelete, jsonIgnoreReplacer)));
     }
 
     public async mailActivation(req: Request, res: Response) {
         const token = req.params.token;
-        const p = await this.dbController.getPatientRepository().update({ registrationToken: token }, { isActive: true })
-        const d = await this.dbController.getDoctorRepository().update({ registrationToken: token }, { isActive: true })
+        const p = await this.dbController.getPatientRepository().update({ registrationToken: token }, { isActive: true });
+        const d = await this.dbController.getDoctorRepository().update({ registrationToken: token }, { isActive: true });
         if (p || d) res.send({ message: "Poprawna weryfikacja konta" });
         else res.send({ error: Errors.WRONG_CREDENTIALS })
     }
@@ -206,7 +207,7 @@ export default class UserController {
             await this.dbController.getPatientRepository().findOne({ where: { mail: email } }) ||
             await this.dbController.getDoctorRepository().findOne({ where: { mail: email } });
         if (user) {
-            this.dbController.getPasswordService().getToken(user.mail);
+            await this.dbController.getPasswordService().getToken(user.mail);
             res.send({ message: "Mail send" })
         }
         else res.send({ error: Errors.WRONG_CREDENTIALS })
@@ -214,22 +215,22 @@ export default class UserController {
 
     public async passwordChangeLink(req: Request, res: Response) {
         const token = req.params.token;
-        const valid = await this.dbController.getPasswordService().checkToken(token)
+        const valid = await this.dbController.getPasswordService().checkToken(token);
         if (!valid) {
             res.send({ error: Errors.WRONG_CREDENTIALS })
         } else {
-            req.session.userPassChange = await (await
+            req.session.userPassChange = (await
                 this.dbController
                     .getPasswordService()
                     .getTokenUser(token))
-                .mail
+                .mail;
             res.sendFile(path.resolve("src/private/util/passwordForm.html"));
         }
     }
     public async passwordChange(req: Request, res: Response) {
         const pass = req.body.pass;
         let email = req!.session!.userPassChange;
-        const status = await this.dbController.getPasswordService().changeUserPassword(email, pass);
+        await this.dbController.getPasswordService().changeUserPassword(email, pass);
         res.redirect("/")
     }
 
