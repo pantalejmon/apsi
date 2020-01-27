@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 function main() {
   sidenavInit();
+  registerSW();
 }
 
 function sidenavInit() {

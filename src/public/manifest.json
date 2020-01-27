@@ -2,7 +2,7 @@
   "name": "System elektronicznej rejestracji pacjentów",
   "short_name": "SERP",
   "theme_color": "#64b5f6",
-  "background_color": "#2196f3",
+  "background_color": "#64b5f6",
   "display": "standalone",
   "Scope": "/",
   "start_url": "/index.html",
