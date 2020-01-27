@@ -90,7 +90,7 @@ function register() {
 
     // Send data to sever and react to responses
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://" + window.location.host + "/api/register", true);
+    xhr.open("POST", "https://" + window.location.host + "/api/register", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function () {
         if (this.status === 200) {
@@ -98,7 +98,7 @@ function register() {
             console.log(response);
             // Show message to user, after user clicks 'OK', redirecting to login screen
             alert(response.message);
-            top.location.replace("http://" + window.location.host + "/login.html");
+            top.location.replace("https://" + window.location.host + "/login.html");
 
         } else if (this.status === 400) {
             const response = JSON.parse(this.responseText);
