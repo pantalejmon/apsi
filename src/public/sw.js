@@ -6,9 +6,9 @@ var filesToCache = [
     "/index.html",
     "/css/style.css",
     "/css/materialize.min.css",
-    "/scripts/indexScript.js",
-    "/scripts/loginScript.js",
-    "/scripts/registerScript.js",
+    "/js/indexScript.js",
+    "/js/loginScript.js",
+    "/js/registerScript.js",
     "/login.html",
     "/register.html",
     "/info.html"
