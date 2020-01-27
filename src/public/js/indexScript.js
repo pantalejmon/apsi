@@ -29,3 +29,11 @@ function changeActiveMenuItem(str) {
   }
   document.getElementById(str).classList.add("active");
 }
+
+function registerSW() {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js").then(function () {
+      console.log("Service Worker Registered");
+    });
+  }
+}
