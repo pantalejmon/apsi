@@ -46,8 +46,11 @@ function fetchEventsAndAddToCalendar() {
         if (this.status === 200) {
             // for each appointment make an Event object and add it to calendar
             const json = JSON.parse(xhr.response);
-            // Process and add events to callendar
-            addEventsToCallendar(json);
+            // Check if json is not empty
+            if (!isEmpty(json)) {
+                // Process and add events to callendar
+                addEventsToCallendar(json);
+            }
         }
 
     });
@@ -95,6 +98,19 @@ function convertTimestampToCalendarDate(timestamp) {
     return date;
 }
 
+/**
+ * Check if JSON object is empty
+ * @param obj is JSON object on which we perform check
+ */
+function isEmpty(obj) {
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
+}
+
 /*
 const testJson = [
     {
@@ -113,5 +129,5 @@ const testJson = [
         doctor: "Doktor Strange",
         status: "Pending"
     }
-]; 
+];
 */
