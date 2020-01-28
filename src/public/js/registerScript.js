@@ -90,7 +90,7 @@ function register() {
 
     // Send data to sever and react to responses
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://" + window.location.host + "/api/register", true);
+    xhr.open("POST", chooseProtocol() + window.location.host + "/api/register", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function () {
         if (this.status === 200) {
@@ -238,4 +238,8 @@ function validateDateOfBirth(dateOfBirth) {
 function convertDateToTimestamp(strDate) {
     var dateUnix = Date.parse(strDate.split("/").reverse().join("/"));
     return dateUnix / 1000;
+}
+
+function chooseProtocol() {
+    return window.location.host.includes("localhost") ? "http://" : "https://"
 }

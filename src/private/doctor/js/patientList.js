@@ -1,20 +1,21 @@
 let loadedPages = 0;
 //potrzebuje api/patient/list czy cos
+// Narazie nie robimy paginacji [JJ]
 const getData = () => {
-        fetch(`http://${window.location.host}/api/doctor/appointment?${loadedPages ? `page=${loadedPages}` : ''}`)
+    fetch(`${chooseProtocol()}${window.location.host}/api/doctor/appointment?${loadedPages ? `page=${loadedPages}` : ''}`)
         .then(resp => resp.json())
         .then(data => {
             const tableBody = document.getElementById('patient-list-table')
-        
+
             //TODO: usunac testowe dane
             data = [...testData]
             data.length = Math.floor(Math.random() * data.length);
             //do testow
-        
+
             data.forEach(patient => {
                 row = document.createElement("tr");
                 row.setAttribute('id', `${patient.contact}-${loadedPages}`);
-                
+
                 row.innerHTML = `
                 <td>${patient.name}</td>
                 <td>${patient.surname}</td>
@@ -28,7 +29,7 @@ const getData = () => {
 
 }
 
-const init = () =>{
+const init = () => {
     document
         .getElementById('load-more')
         .addEventListener('click', getData);
@@ -158,3 +159,7 @@ const testData = [{
     "surname": "Di Meo",
     "contact": "mdimeot@narod.ru"
 }]
+
+function chooseProtocol() {
+    return window.location.host.includes("localhost") ? "http://" : "https://"
+}
