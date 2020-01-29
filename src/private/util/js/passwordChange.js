@@ -26,7 +26,7 @@ function changePass() {
     console.log(message);
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://" + window.location.host + "/api/passchange", true);
+    xhr.open("POST", chooseProtocol() + window.location.host + "/api/passchange", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function () {
         console.log("cos doszlo");
@@ -73,4 +73,8 @@ function validatePassword(pass1, pass2) {
         pass2.classList.remove("valid");
         return false;
     }
+}
+
+function chooseProtocol() {
+    return window.location.host.includes("localhost") ? "http://" : "https://"
 }

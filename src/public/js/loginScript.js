@@ -20,7 +20,7 @@ function login() {
     message.email = document.getElementById("email").value;
     message.password = document.getElementById("password").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://" +
+    xhr.open("POST", chooseProtocol()+
         window.location.host + "/api/login", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function () {
@@ -40,4 +40,8 @@ function login() {
         }
     });
     xhr.send(JSON.stringify(message));
+}
+
+function chooseProtocol() {
+    return window.location.host.includes("localhost") ? "http://" : "https://"
 }
