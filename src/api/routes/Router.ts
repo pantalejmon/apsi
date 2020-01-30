@@ -9,8 +9,8 @@ import DataController from "./controllers/DataController";
 
 export default class Router {
     private router: express.Application | undefined;
-    private api: string;
-    private dbController: DatabaseController
+    private readonly api: string;
+    private readonly dbController: DatabaseController;
     private authController: AuthenticationController;
     private permController: AuthorisationController;
     private userController: UserController;
@@ -50,6 +50,7 @@ export default class Router {
         this.router.put(this.api + "appointment/status", this.permController.verifyUser, this.permController.checkRoleDoctor, this.dataController.setAppointmentStatus);
         this.router.get(this.api + "util/role", this.permController.verifyUser, this.userController.getMyRole);
         this.router.get(this.api + "util/me", this.permController.verifyUser, this.userController.getMyInfo);
+        this.router.get(this.api + "doctor/list", this.permController.verifyUser, this.userController.getAllDoctors);
         this.router.get(this.api + "patient/findByMail/:email", this.permController.verifyUser, this.userController.getPatientByEmail);
         this.router.get(this.api + "doctor/findByMail/:email", this.permController.verifyUser, this.userController.getDoctorByEmail);
         this.router.post(this.api + "logout", this.userController.logout);
@@ -57,7 +58,7 @@ export default class Router {
         /**
          * Wystawienie publicznych htmli
          */
-        this.router.use(express.static("./src/public", { index: false, extensions: ['html'] }));
+        this.router.use(express.static("./src/public", {index: false, extensions: ['html']}));
         this.router.get('/', (req, res) => res.redirect('/index'));
 
         /**
@@ -76,7 +77,7 @@ export default class Router {
         /**
          * Błędy
          */
-        this.router.use((req: Request, res: Response) => res.status(404).send("Strona nie istnieje (-_-)"))
+        this.router.use((req: Request, res: Response) => res.status(404).send("Strona nie istnieje (-_-)"));
         this.router.use((req: Request, res: Response) => res.status(500).send("Błąd który nie ma prawa wystąpić (-_-)"))
     }
 }

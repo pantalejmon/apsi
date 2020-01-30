@@ -9,10 +9,11 @@ import User from '../../../database/entity/User';
 import crypto from "crypto";
 import MailController from '../../mail/MailController';
 import path from 'path';
-import {jsonIgnoreReplacer} from "json-ignore";
+import { jsonIgnoreReplacer } from "json-ignore";
 
 export default class UserController {
     private dbController: DatabaseController;
+
     constructor(db: DatabaseController) {
         // Bindowanie
         this.dbController = db;
@@ -41,7 +42,9 @@ export default class UserController {
     }
 
     public async logout(req: Request, res: Response): Promise<void> {
-        req.session.destroy((err) => { if (err) console.log(err) });
+        req.session.destroy((err) => {
+            if (err) console.log(err)
+        });
         res.redirect("/index");
     }
 
@@ -209,8 +212,7 @@ export default class UserController {
         if (user) {
             await this.dbController.getPasswordService().getToken(user.mail);
             res.send({ message: "Mail send" })
-        }
-        else res.send({ error: Errors.WRONG_CREDENTIALS })
+        } else res.send({ error: Errors.WRONG_CREDENTIALS })
     }
 
     public async passwordChangeLink(req: Request, res: Response) {
@@ -227,6 +229,7 @@ export default class UserController {
             res.sendFile(path.resolve("src/private/util/passwordForm.html"));
         }
     }
+
     public async passwordChange(req: Request, res: Response) {
         const pass = req.body.pass;
         let email = req!.session!.userPassChange;
@@ -237,8 +240,8 @@ export default class UserController {
     /*************POMOCNICZE ***************************/
 
     /**
-     * 
-     * @param patient 
+     *
+     * @param patient
      */
     private async savePatient(patient: Patient) {
         const repository = this.dbController.getPatientRepository();
@@ -246,8 +249,8 @@ export default class UserController {
     }
 
     /**
-     * 
-     * @param doctor 
+     *
+     * @param doctor
      */
     private async saveDoctor(doctor: Doctor) {
         const repository = this.dbController.getDoctorRepository();
@@ -255,15 +258,15 @@ export default class UserController {
     }
 
     /**
-     * 
+     *
      */
     public generateToken(): string {
         return crypto.randomBytes(64).toString('hex');
     }
 
     /**
-     * 
-     * @param citizenId 
+     *
+     * @param citizenId
      */
     private isCitizenIdValid(citizenId: string): boolean {
         let onlyDigitsRegex = /^\d{11}$/;
@@ -276,8 +279,8 @@ export default class UserController {
     }
 
     /**
-     * 
-     * @param dateOfBirth 
+     *
+     * @param dateOfBirth
      */
     private isDateOfBirthValid(dateOfBirth: number): boolean {
         if (isNaN(dateOfBirth)) {
@@ -286,8 +289,8 @@ export default class UserController {
     }
 
     /**
-     * 
-     * @param input 
+     *
+     * @param input
      */
     private isStringNotEmpty(input: string): boolean {
         if (!input ||
