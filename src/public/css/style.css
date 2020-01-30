@@ -36,6 +36,10 @@ footer {
   padding-left: 300px;
 }
 
+.main {
+  padding: 0;
+}
+
 @media only screen and (max-width : 992px) {
 
   header,
