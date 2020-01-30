@@ -59,7 +59,7 @@ function fetchEventsAndAddToCalendar() {
         alert("Niestety nie udało się nawiązać połączenia");
     });
 
-    xhr.open("GET", "http://" + window.location.host + "/api/doctor/appointment", true);
+    xhr.open("GET", chooseProtocol() + window.location.host + "/api/doctor/appointment", true);
     xhr.send();
 }
 
@@ -109,6 +109,10 @@ function isEmpty(obj) {
     }
 
     return true;
+}
+
+function chooseProtocol() {
+    return window.location.host.includes("localhost") ? "http://" : "https://"
 }
 
 /*
