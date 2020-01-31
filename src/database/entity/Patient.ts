@@ -11,8 +11,9 @@ export default class Patient extends User {
     @Column({ length: 11 })
     public citizenId: string = '';
 
-    @Column({ type: "timestamp without time zone" })
-    public dateOfBirth: number;
+    // dateOfBirth is Unix Timestamp (seconds since 01.01.1970(UTC))
+    @Column({ type: "integer", default: 0 })
+    public dateOfBirth: number = 0;
 
     @OneToMany(type => Appointment, appointments => appointments.patient)
     public appointments: Appointment[];
