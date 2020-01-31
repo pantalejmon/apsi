@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany, TableInheritance } from 'typeorm';
-import { Appointment } from './Appointment';
+import { Column, PrimaryGeneratedColumn} from 'typeorm';
+import {jsonIgnore} from "json-ignore";
 
 /**
  * Abstrakcyjna klasa bazowa będąca modelem użytkownika aplikacji
@@ -21,11 +21,14 @@ export default abstract class User {
     public phoneNumber: string = '';
 
     @Column()
+    @jsonIgnore()
     public hashedPassword: string = '';
 
     @Column()
+    @jsonIgnore()
     public isActive: boolean = false;
 
     @Column()
+    @jsonIgnore()
     public registrationToken: string = '';
 }
