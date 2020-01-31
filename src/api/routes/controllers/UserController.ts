@@ -53,10 +53,10 @@ export default class UserController {
         let me: User;
         switch (req.session.role) {
             case Role.DOCTOR:
-                me = await this.dbController.getDoctorRepository().findOne({ where: { email: req.session.email } });
+                me = await this.dbController.getDoctorRepository().findOne({ where: { mail: req.session.mail } });
                 break;
             case Role.PATIENT:
-                me = await this.dbController.getPatientRepository().findOne({ where: { email: req.session.email } });
+                me = await this.dbController.getPatientRepository().findOne({ where: { mail: req.session.mail } });
                 break;
             default:
                 break;
