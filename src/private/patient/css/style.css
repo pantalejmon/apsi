@@ -78,3 +78,28 @@ header {
   background-color: #64b5f6
   /*Custom Background Color While Active*/
 }
+
+.main, .header {
+  padding: 0;
+}
+
+.link-to-profile {
+  font-size: 12px;
+
+}
+
+.useMenu{
+  text-align: left;
+}
+
+.promo {
+  margin: 30px 30px;
+  color: #2196f3;
+  font-size: 1.5rem;
+  text-align: left;
+  display: block
+}
+
+.row .col.s6 {
+  width: 5%;
+} 

@@ -69,3 +69,7 @@ header {
   font-size: 6rem;
   display: block
 }
+
+.main {
+  padding: 0;
+}
