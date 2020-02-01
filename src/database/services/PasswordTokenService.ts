@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import PasswordToken from "../entity/PasswordToken";
 import { Repository } from "typeorm";
 import crypto from "crypto";

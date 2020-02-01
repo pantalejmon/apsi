@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import "reflect-metadata";
+=======
+import * as express from 'express';
+>>>>>>> origin/master
 import DatabaseController from '../../../database/DatabaseController';
 import { Appointment } from '../../../database/entity/Appointment';
 import { AppointmentStatus, Role, Errors } from '../../../database/util/Enums';

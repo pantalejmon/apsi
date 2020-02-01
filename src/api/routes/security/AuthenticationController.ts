@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import DatabaseController from "../../../database/DatabaseController";
 import { NextFunction, Request, Response } from "express";
 import User from "../../../database/entity/User";
