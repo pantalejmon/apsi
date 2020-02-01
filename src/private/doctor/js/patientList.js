@@ -1,7 +1,8 @@
 let loadedPages = 0;
 //potrzebuje api/patient/list czy cos
+// Narazie nie robimy paginacji [JJ]
 const getData = () => {
-    fetch(`https://${window.location.host}/api/doctor/appointment?${loadedPages ? `page=${loadedPages}` : ''}`)
+    fetch(`${chooseProtocol()}${window.location.host}/api/doctor/appointment?${loadedPages ? `page=${loadedPages}` : ''}`)
         .then(resp => resp.json())
         .then(data => {
             const tableBody = document.getElementById('patient-list-table')
