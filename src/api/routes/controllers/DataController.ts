@@ -1,14 +1,12 @@
-<<<<<<< HEAD
 import "reflect-metadata";
-=======
-import * as express from 'express';
->>>>>>> origin/master
 import DatabaseController from '../../../database/DatabaseController';
 import { Appointment } from '../../../database/entity/Appointment';
 import { AppointmentStatus, Role, Errors } from '../../../database/util/Enums';
 import { Request, Response } from 'express';
 import Doctor from '../../../database/entity/Doctor';
 import Patient from '../../../database/entity/Patient';
+import { jsonIgnoreReplacer } from "json-ignore";
+
 
 export default class DataController {
     private dbController: DatabaseController;
@@ -114,7 +112,7 @@ export default class DataController {
         newAppointment.status = AppointmentStatus.PENDING;
         await appointmentRepo.save(newAppointment);
 
-        res.send(newAppointment);
+        res.send(JSON.parse(JSON.stringify(newAppointment, jsonIgnoreReplacer)));
     }
 
     /**
@@ -146,7 +144,8 @@ export default class DataController {
         }
 
         try {
-            await repository.update(req.body.appointmentId, { status: req.body.newStatus });
+            const updated = await repository.update(req.body.appointmentId, { status: req.body.newStatus });
+            res.send(updated)
         } catch (err) {
             res.send({ error: Errors.INVALID_DATA });
             console.log(err)

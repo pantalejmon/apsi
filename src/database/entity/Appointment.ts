@@ -11,7 +11,7 @@ export class Appointment {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column({ type: "timestamp" })
+    @Column({ type: "timestamp without time zone" })
     public startDate: number;
 
     @Column()
