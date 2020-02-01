@@ -1,6 +1,5 @@
-import * as express from 'express';
+import "reflect-metadata";
 import DatabaseController from '../../../database/DatabaseController';
-import { Const } from '../../../config/Constants';
 import { Appointment } from '../../../database/entity/Appointment';
 import { AppointmentStatus, Role, Errors } from '../../../database/util/Enums';
 import { Request, Response } from 'express';
@@ -23,8 +22,8 @@ export default class DataController {
 
     /**
      * All my patient appointments
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public async getAllAppointments(req: Request, res: Response) {
         if (req.session.role === Role.ADMIN) {
@@ -38,8 +37,8 @@ export default class DataController {
 
     /**
      * Get all appointments for particular patient
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public async getAllMyPatientAppointments(req: Request, res: Response) {
         if (req.session.role === Role.PATIENT) {
@@ -53,8 +52,8 @@ export default class DataController {
 
     /**
      * Get all appointments for particular doctor
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public async getAllMyDoctorAppointments(req: Request, res: Response) {
         if (req.session.role === Role.DOCTOR) {
@@ -70,8 +69,8 @@ export default class DataController {
      * Save new appointment
      * Request should contain appointment fields without status (automatically set to Pending)
      * and patientId and doctorId
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public async saveNewAppointment(req: Request, res: Response) {
         if (!req.body.startDate ||
@@ -117,8 +116,8 @@ export default class DataController {
     /**
      * Set new status to appointment
      * Request should contain @appointmentId and @newStatus
-     * @param req 
-     * @param res 
+     * @param req
+     * @param res
      */
     public async setAppointmentStatus(req: Request, res: Response) {
         if (!req.body.appointmentId || !req.body.newStatus) {
@@ -136,7 +135,7 @@ export default class DataController {
             where: {
                 id: req.body.appointmentId
             }
-        })
+        });
         if (appointment.doctor.id !== req.session.userid) {
             res.send({ error: Errors.PERMISSION_DENIED });
             return;
