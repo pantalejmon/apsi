@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-
+    welcomeUser = document.getElementById('welcomeUser');
     let apiRequest = new XMLHttpRequest();
     apiRequest.open("GET", chooseProtocol() + window.location.host + "/api/util/me", true);
 
@@ -9,14 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
     apiRequest.onload = () => {
         // get JSON response
         const user = apiRequest.response;
-        console.log(user);
 
         // log details
-        let text = user.firstName + " " + user.lastName;
-        document.getElementById('first-name').value = text;
-        document.getElementById('email').value = user.mail;
-        document.getElementById('phone-number').value = user.phoneNumber;
-        document.getElementById('specialization').value = user.citizenId;
+        let text = "Witaj " + user.firstName + " " + user.lastName;
+        welcomeUser.innerHTML = text;
     }
 
 });

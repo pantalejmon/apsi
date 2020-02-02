@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-
+    loggedAsUser = document.getElementById('loggedAsUser');
     let apiRequest = new XMLHttpRequest();
     apiRequest.open("GET", chooseProtocol() + window.location.host + "/api/util/me", true);
 
@@ -9,14 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
     apiRequest.onload = () => {
         // get JSON response
         const user = apiRequest.response;
-        console.log(user);
 
         // log details
-        let text = user.firstName + " " + user.lastName;
-        document.getElementById('first-name').value = text;
-        document.getElementById('email').value = user.mail;
-        document.getElementById('phone-number').value = user.phoneNumber;
-        document.getElementById('specialization').value = user.citizenId;
+        let text = "Jesteś zalogowany jako " + user.firstName + " " + user.lastName;
+        loggedAsUser.innerHTML = text;
     }
 
 });
@@ -25,3 +21,4 @@ document.addEventListener('DOMContentLoaded', function () {
 function chooseProtocol() {
     return window.location.host.includes("localhost") ? "http://" : "https://"
 } 
+
