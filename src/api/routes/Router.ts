@@ -51,6 +51,7 @@ export default class Router {
         this.router.get(this.api + "util/role", this.permController.verifyUser, this.userController.getMyRole);
         this.router.get(this.api + "util/me", this.permController.verifyUser, this.userController.getMyInfo);
         this.router.get(this.api + "doctor/list", this.permController.verifyUser, this.userController.getAllDoctors);
+        this.router.get(this.api + "patient/list", this.permController.verifyUser, this.userController.getAllPatients);
         this.router.get(this.api + "patient/findByMail/:email", this.permController.verifyUser, this.userController.getPatientByEmail);
         this.router.get(this.api + "doctor/findByMail/:email", this.permController.verifyUser, this.userController.getDoctorByEmail);
         this.router.post(this.api + "logout", this.userController.logout);
