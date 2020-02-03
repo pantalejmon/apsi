@@ -26,12 +26,20 @@
                 <div class="row" style=" padding: 32px 48px 0px 48px; border: 1px;">
                     <h4 class="center" style="padding: 12px 24px 32px 24px;">Nowa wizyta</h4>
                     <form id="form-register-visit"" class=" col s12">
-                        <div class="input-field col s12">
+                        <div class="input-field col col s12 m6 l6">
                             <select id="select-doctor">
                                 <option value="" disabled selected>Wybierz doktora</option>
                             </select>
-                            <label>Wizyta u doktora</label>
+                            <label>Zapisz się na wizytę do doktora</label>
                         </div>
+                        <div class="input-field col col s12 m6 l6">
+                            <i class="material-icons prefix">event</i>
+                            <input id="appointment-date" type="text" class="datepicker">
+                            <label for="appointment-date">Data wizyty</label>
+                        </div>
+                        <button
+                            class="waves-effect waves-light btn center-align col s12 m8 push-m2 l8 push-l2 waves-light blue"
+                            onclick="registerAppointment()">Zarejestruj wizytę</button>
                     </form>
                 </div>
             </div>
