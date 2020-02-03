@@ -12,6 +12,14 @@
     padding: 0 15px;
 }
 
+.promo {
+    margin: 30px 30px;
+    color: #2196f3;
+    font-size: 1.5rem;
+    text-align: left;
+    display: block
+}
+
 .icon-block .material-icons {
     font-size: inherit;
 }
@@ -49,6 +57,13 @@ footer {
 html,
 body {
     height: 100%;
+}
+
+.row .col.s6 {
+    width: 5%;
+    margin-left: auto;
+    left: auto;
+    right: auto
 }
 
 header {
