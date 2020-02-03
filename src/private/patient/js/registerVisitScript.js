@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 function main() {
     initializeMaterializeSelectors();
-    datepickerInit();
+    initializeDatepickers();
     getDoctorsListAndAddToSelect();
 }
 
@@ -54,9 +54,19 @@ function getDoctorsListAndAddToSelect() {
  */
 function registerAppointment() {
     const submittedData = {};
+
     submittedData.startDate = convertDateToTimestamp(document.getElementById("appointment-date").value);
     console.log(convertDateToTimestamp(document.getElementById("appointment-date").value));
-    submittedData.duration = 7200;
+    
+    let selectDuration = document.getElementById("select-duration");
+    let appointmentDuration = selectDuration.options[selectDuration.selectedIndex].value;
+    // Appointment duration should be presented in seconds
+    if (appointmentDuration == 1) {
+        submittedData.duration = 3600;
+    } else if (appointmentDuration == 2) {
+        submittedData.duration = 7200;
+    } else submittedData.duration = 0;
+    
     // Doctor email
     let selectDoctor = document.getElementById("select-doctor");
     let doctorValue = selectDoctor.options[selectDoctor.selectedIndex].value;
@@ -70,15 +80,15 @@ function registerAppointment() {
 
     // Send data to sever and react to responses
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", chooseProtocol() + window.location.host + "appointment/new", true);
+    xhr.open("POST", chooseProtocol() + window.location.host + "/api/appointment/new", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function () {
         if (this.status === 200) {
-            const response = JSON.parse(this.responseText);
+            const response = this.response;
             console.log(response);
+            
             // Show message to user, after user clicks 'OK', redirecting to login screen
-            alert(response.message);
-            //top.location.replace("http://" + window.location.host + "/login.html");
+            alert(response);
 
         } else if (this.status === 400) {
             const response = JSON.parse(this.responseText);
@@ -88,6 +98,7 @@ function registerAppointment() {
         }
     });
     xhr.send(JSON.stringify(submittedData));
+    console.log(submittedData);
 }
 
 function validateFormInput(inputJson) {
@@ -95,11 +106,11 @@ function validateFormInput(inputJson) {
     if (!inputJson.startDate) {
         alert("Incorrect start date!");
         return false;
-    } else if (inputJson.duration) {
+    } else if (!inputJson.duration) {
         alert("Incorrect duration!");
         return false;
-    } else if (!inputJson.mail) {
-        alert("Incorrect doctor!");
+    } else if (!inputJson.mail || !inputJson.mail.trim()) {
+        alert("Incorrect doctor info!");
         return false;
     }
     return true
@@ -115,15 +126,18 @@ function convertDateToTimestamp(strDate) {
 }
 
 function initializeMaterializeSelectors() {
-    let elems = document.getElementById("select-doctor");
+    let elems = document.querySelectorAll('select');
     let options = {};
-    let instance = M.FormSelect.init(elems, options);
+    let instances = M.FormSelect.init(elems, options);
 }
 
-function datepickerInit() {
+function initializeDatepickers() {
+    let todayDate = new Date();
+
     let elems = document.querySelectorAll('.datepicker');
     let datePickerOptions = {
-        format: "dd/mm/yyyy"
+        format: "dd/mm/yyyy",
+        minDate: todayDate
     };
     let instances = M.Datepicker.init(elems, datePickerOptions);
 }
