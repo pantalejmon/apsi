@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>System elektronicznej rejestracji pacjentów</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body>
+    <header>
+        <!-- OSTRZEŻENIE O BRAKU SKRYPTÓW -->
+        <noscript>
+            <div>
+                W celu obsługi aplikacji włącz obsługe skryptów
+            </div>
+        </noscript>
+
+        <main>
+            <div class="col card hoverable s10 pull-s1 m8 pull-m2 l8 pull-l2" style="padding:16px; margin-top: 24px;">
+                <div class="row" style=" padding: 32px 48px 0px 48px; border: 1px;">
+                    <h4 class="center" style="padding: 12px 24px 32px 24px;">Nowa wizyta</h4>
+                    <form id="form-register-visit"" class=" col s12">
+                        <div class="input-field col s12">
+                            <select id="select-doctor">
+                                <option value="" disabled selected>Wybierz doktora</option>
+                            </select>
+                            <label>Wizyta u doktora</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+
+        <script src="js/materialize.min.js"></script>
+        <script src="js/registerVisitScript.js"></script>
+</body>
+
+</html>
