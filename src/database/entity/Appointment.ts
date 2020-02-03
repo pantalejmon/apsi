@@ -11,9 +11,11 @@ export class Appointment {
     @PrimaryGeneratedColumn()
     public id: number;
 
-    @Column({ type: "timestamp without time zone" })
-    public startDate: number;
+    // startDate is Unix Timestamp (seconds since 01.01.1970(UTC))
+    @Column({ type: "integer", default: 0 })
+    public startDate: number = 0;
 
+    // duration in seconds
     @Column()
     public duration: number;
 
