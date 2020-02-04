@@ -22,9 +22,7 @@ function getDoctorsListAndAddToSelect() {
     xhr.responseType = "json";
     xhr.addEventListener('load', function () {
         if (this.status === 200) {
-
             const response = xhr.response;
-            console.log(response);
             // Check if response is not empty
             let selectDoctor = document.getElementById("select-doctor");
             if (response.length) {
@@ -33,7 +31,7 @@ function getDoctorsListAndAddToSelect() {
                     let option = document.createElement('option');
                     option.value = element.mail;
                     option.text = element.firstName + " " + element.lastName;
-                    //console.log(option);
+
                     selectDoctor.appendChild(option);
                     M.FormSelect.init(selectDoctor);
                 });
@@ -56,8 +54,7 @@ function registerAppointment() {
     const submittedData = {};
 
     submittedData.startDate = convertDateToTimestamp(document.getElementById("appointment-date").value);
-    console.log(convertDateToTimestamp(document.getElementById("appointment-date").value));
-    
+
     let selectDuration = document.getElementById("select-duration");
     let appointmentDuration = selectDuration.options[selectDuration.selectedIndex].value;
     // Appointment duration should be presented in seconds
@@ -66,11 +63,10 @@ function registerAppointment() {
     } else if (appointmentDuration == 2) {
         submittedData.duration = 7200;
     } else submittedData.duration = 0;
-    
+
     // Doctor email
     let selectDoctor = document.getElementById("select-doctor");
     let doctorValue = selectDoctor.options[selectDoctor.selectedIndex].value;
-    console.log(doctorValue);
     submittedData.mail = doctorValue;
 
     if (!validateFormInput(submittedData)) {
@@ -85,32 +81,28 @@ function registerAppointment() {
     xhr.addEventListener('load', function () {
         if (this.status === 200) {
             const response = this.response;
-            console.log(response);
-            
+
             // Show message to user, after user clicks 'OK', redirecting to login screen
-            alert(response);
+            alert("Wizyta została poprawnie utworzona");
 
         } else if (this.status === 400) {
             const response = JSON.parse(this.responseText);
-            console.log(response);
             // Sent data was wrong, show message to user
             alert(response.error);
         }
     });
     xhr.send(JSON.stringify(submittedData));
-    console.log(submittedData);
 }
 
 function validateFormInput(inputJson) {
-    // Validate fields shared by patient and doctor
-    if (!inputJson.startDate) {
-        alert("Incorrect start date!");
+    if (!inputJson.mail || !inputJson.mail.trim()) {
+        alert("Wybierz doktora");
+        return false;
+    } else if (!inputJson.startDate) {
+        alert("Wybierz datę wizyty");
         return false;
     } else if (!inputJson.duration) {
-        alert("Incorrect duration!");
-        return false;
-    } else if (!inputJson.mail || !inputJson.mail.trim()) {
-        alert("Incorrect doctor info!");
+        alert("Wybierz czas trwania wizyty!");
         return false;
     }
     return true
