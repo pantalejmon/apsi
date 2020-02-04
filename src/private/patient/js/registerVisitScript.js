@@ -140,7 +140,7 @@ function validateTimepickerValue(timepickerValueInSeconds) {
  * @param {*} strDate - date in format: yyyy/mm/dd
  */
 function convertDateToTimestamp(strDate) {
-    var dateUnix = Date.parse(strDate.split("/").reverse().join("/"));
+    let dateUnix = Date.parse(strDate.split("/").reverse().join("/"));
     return dateUnix / 1000;
 }
 
@@ -176,11 +176,11 @@ function initializeDatepickers() {
 }
 
 function initializeTimepickers() {
-    var elems = document.querySelectorAll('.timepicker');
+    let elems = document.querySelectorAll('.timepicker');
     let options = {
         twelveHour: false
     };
-    var instances = M.Timepicker.init(elems, options);
+    let instances = M.Timepicker.init(elems, options);
 }
 
 function chooseProtocol() {
