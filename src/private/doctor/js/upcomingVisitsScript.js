@@ -76,8 +76,7 @@ function fetchEventsAndAddToCalendar(calendarInstance) {
  */
 function addEventsToCallendar(eventsArray, calendarInstance) {
     // Iterate through events, process and add to callendar
-    for (let i = 0; i < eventsArray.length; i++) {
-        let event = eventsArray[i];
+    for (let event of eventsArray) {
         let callendarEvent = {};
         // Construct event
         callendarEvent.title = event.patient.firstName + " " + event.patient.lastName;
