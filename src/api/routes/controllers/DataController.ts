@@ -60,7 +60,7 @@ export default class DataController {
     public async getAllMyDoctorAppointments(req: Request, res: Response) {
         if (req.session.role === Role.DOCTOR) {
             const appointmentRepo = this.dbController.getAppointmentRepository();
-            const myAppointments = await appointmentRepo.find({ where: { doctor: req.session.userid } });
+            const myAppointments = await appointmentRepo.find({ relations: ["patient"], where: { doctor: req.session.userid } });
             res.send(myAppointments);
         } else {
             res.send({ error: Errors.PERMISSION_DENIED });

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 function main() {
     renderCalendar();
-    fetchEventsAndAddToCalendar();
+    //fetchEventsAndAddToCalendar();
 }
 
 function renderCalendar() {
@@ -36,20 +36,20 @@ function renderCalendar() {
     });
 
     calendar.render();
+
+    fetchEventsAndAddToCalendar(calendar);
 }
 
-function fetchEventsAndAddToCalendar() {
+function fetchEventsAndAddToCalendar(calendarInstance) {
     // Get data from API
     const xhr = new XMLHttpRequest();
     xhr.responseType = "json";
     xhr.addEventListener('load', function () {
         if (this.status === 200) {
-            // for each appointment make an Event object and add it to calendar
-            const json = JSON.parse(xhr.response);
-            // Check if json is not empty
-            if (!isEmpty(json)) {
+            const response = xhr.response;
+            if (response.length) {
                 // Process and add events to callendar
-                addEventsToCallendar(json);
+                addEventsToCallendar(response, calendarInstance);
             }
         }
 
@@ -72,20 +72,22 @@ function fetchEventsAndAddToCalendar() {
         start: '2020-01-17T12:00:00', // a property!
         end: '2020-01-17T14:00:00' // a property! ** see important note below about 'end' **
     }
- * @param eventsJson is server response containting appointments as array of events
+ * @param eventsArray is server response containting appointments as array of event objects
  */
-function addEventsToCallendar(eventsJson) {
+function addEventsToCallendar(eventsArray, calendarInstance) {
     // Iterate through events, process and add to callendar
-    for (let i = 0; i < eventsJson.length; i++) {
-        let jsonEvent = eventsJson[i];
+    for (let i = 0; i < eventsArray.length; i++) {
+        let event = eventsArray[i];
         let callendarEvent = {};
         // Construct event
-        callendarEvent.title = jsonEvent.patient;
-        callendarEvent.start = convertTimestampToCalendarDate(jsonEvent.startDate);
-        callendarEvent.end = convertTimestampToCalendarDate(jsonEvent.startDate + jsonEvent.duration);
+        callendarEvent.title = event.patient.firstName + " " + event.patient.lastName;
+        callendarEvent.start = convertTimestampToCalendarDate(event.startDate);
+        callendarEvent.end = convertTimestampToCalendarDate(event.startDate + event.duration);
         // Add current event to callendar
-        calendar.addEvent(callendarEvent);
+        calendarInstance.addEvent(callendarEvent);
     }
+
+    calendarInstance.render();
 }
 
 /**
