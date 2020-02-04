@@ -18,9 +18,11 @@ function main() {
  * Inicjacja elementów z materialize
  */
 function datepickerInit() {
+    let todayDate = new Date();
     let elems = document.querySelectorAll('.datepicker');
     let datePickerOptions = {
-        format: "dd/mm/yyyy"
+        format: "dd/mm/yyyy",
+        maxDate: todayDate
     };
     let instances = M.Datepicker.init(elems, datePickerOptions);
 }
