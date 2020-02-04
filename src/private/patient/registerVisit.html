@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>System elektronicznej rejestracji pacjentów</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body>
+    <header>
+        <!-- OSTRZEŻENIE O BRAKU SKRYPTÓW -->
+        <noscript>
+            <div>
+                W celu obsługi aplikacji włącz obsługe skryptów
+            </div>
+        </noscript>
+
+        <main>
+            <div class="col card hoverable s10 pull-s1 m8 pull-m2 l8 pull-l2" style="padding:16px; margin-top: 24px;">
+                <div class="row" style=" padding: 32px 48px 0px 48px; border: 1px;">
+                    <h4 class="center" style="padding: 12px 24px 32px 24px;">Nowa wizyta</h4>
+                    <div class="input-field col col s12 m6 l6">
+                        <select id="select-doctor">
+                            <option value="" disabled selected>Wybierz doktora</option>
+                        </select>
+                        <label>Zapisz się na wizytę do doktora</label>
+                    </div>
+                    <div class="input-field col col s12 m6 l6">
+                        <i class="material-icons prefix">event</i>
+                        <input id="appointment-date" type="text" class="datepicker">
+                        <label for="appointment-date">Data wizyty</label>
+                    </div>
+                    <div class="input-field col col s12 m6 l6">
+                        <i class="material-icons prefix">access_time</i>
+                        <input id="appointment-time" type="text" class="timepicker">
+                        <label for="appointment-time">Czas rozpoczęcia wizyty</label>
+                    </div>
+                    <div class="input-field col col s12 m6 l6">
+                        <select id="select-duration">
+                            <option value="" disabled selected>Wybierz czas trwania</option>
+                            <option value="1">1 godzina</option>
+                            <option value="2">2 godziny</option>
+                        </select>
+                        <label>Czas trwania wizyty</label>
+                    </div>
+                    <button
+                        class="waves-effect waves-light btn center-align col s12 m8 push-m2 l8 push-l2 waves-light blue"
+                        onclick="registerAppointment()">Zarejestruj wizytę</button>
+                </div>
+            </div>
+
+        </main>
+
+        <script src="js/materialize.min.js"></script>
+        <script src="js/registerVisitScript.js"></script>
+</body>
+
+</html>
