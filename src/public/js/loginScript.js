@@ -1,7 +1,7 @@
 /**
  * Tutaj nie ruszamy
  */
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     main();
 });
 
@@ -20,10 +20,10 @@ function login() {
     message.email = document.getElementById("email").value;
     message.password = document.getElementById("password").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", chooseProtocol()+
+    xhr.open("POST", chooseProtocol() +
         window.location.host + "/api/login", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.addEventListener('load', function () {
+    xhr.addEventListener('load', function() {
         console.log("cos doszlo");
         if (this.status === 200) {
             const response = JSON.parse(this.responseText)
@@ -34,8 +34,8 @@ function login() {
                 // Tutaj musi być działanie dotyczące nie poprawnego logowania, jakiś komunikat
             }
             if (response.token) {
-                if (response.role === "DOCTOR") top.location.replace("https://" + window.location.host + "/doctor/doctorIndex.html");
-                else if (response.role === "PATIENT") top.location.replace("https://" + window.location.host + "/patient/patientIndex.html");
+                if (response.role === "DOCTOR") top.location.replace(chooseProtocol() + window.location.host + "/doctor/doctorIndex.html");
+                else if (response.role === "PATIENT") top.location.replace(chooseProtocol() + window.location.host + "/patient/patientIndex.html");
             }
         }
     });
