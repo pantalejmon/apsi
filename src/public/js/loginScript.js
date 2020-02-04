@@ -30,12 +30,13 @@ function login() {
             console.log(response);
             if (response.error) {
                 alert("Niepoprawne dane logowania!")
-
+                document.getElementById("dataError").style.display = "inline";
+                console.log("jestem tu")
                 // Tutaj musi być działanie dotyczące nie poprawnego logowania, jakiś komunikat
             }
             if (response.token) {
-                if (response.role === "DOCTOR") top.location.replace("https://" + window.location.host + "/doctor/doctorIndex.html");
-                else if (response.role === "PATIENT") top.location.replace("https://" + window.location.host + "/patient/patientIndex.html");
+                if (response.role === "DOCTOR") top.location.replace(chooseProtocol() + window.location.host + "/doctor/doctorIndex.html");
+                else if (response.role === "PATIENT") top.location.replace(chooseProtocol() + window.location.host + "/patient/patientIndex.html");
             }
         }
     });
