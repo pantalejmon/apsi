@@ -30,7 +30,6 @@ function login() {
             console.log(response);
             if (response.error) {
                 alert("Niepoprawne dane logowania!")
-                document.getElementById("dataError").style.display = "inline";
                 console.log("jestem tu")
                 // Tutaj musi być działanie dotyczące nie poprawnego logowania, jakiś komunikat
             }
