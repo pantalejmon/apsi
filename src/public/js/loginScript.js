@@ -30,7 +30,6 @@ function login() {
             console.log(response);
             if (response.error) {
                 alert("Niepoprawne dane logowania!")
-                console.log("jestem tu")
                 // Tutaj musi być działanie dotyczące nie poprawnego logowania, jakiś komunikat
             }
             if (response.token) {
