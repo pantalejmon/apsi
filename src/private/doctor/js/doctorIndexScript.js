@@ -50,6 +50,22 @@ function me() {
 
 }
 
+function logoutUser() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", chooseProtocol() + window.location.host + "/api/logout", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.addEventListener('load', function () {
+        if (this.status === 200) {
+            top.location.replace(chooseProtocol() + window.location.host + "/index.html");
+
+        } else if (this.status === 400) {
+            const response = this.responseText;
+            // Sent data was wrong, show message to user
+            alert(response.error);
+        }
+    });
+    xhr.send();
+}
 
 function chooseProtocol() {
     return window.location.host.includes("localhost") ? "http://" : "https://"
