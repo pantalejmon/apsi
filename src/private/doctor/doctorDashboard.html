@@ -16,16 +16,22 @@
     <header class="header">
         <!-- OSTRZEŻENIE O BRAKU SKRYPTÓW -->
         <noscript>
-      <div>
-        W celu obsługi aplikacji włącz obsługe skryptów
-      </div>
-    </noscript>
+            <div>
+                W celu obsługi aplikacji włącz obsługe skryptów
+            </div>
+        </noscript>
         <!-- GÓRNA BELKA I MENU -->
         <main class="main">
-            <div class="col card hoverable s10 pull-s1 m8 pull-m2 l8 pull-l2" style="padding:16px; margin: 24px 4px 4px 24px; ">
+            <div class="col card hoverable s10 pull-s1 m8 pull-m2 l8 pull-l2"
+                style="padding:16px; margin: 24px 4px 4px 24px; ">
+                <div class="center" style="padding: 0px; margin: 0px;">
+                    <lottie-player src="https://assets9.lottiefiles.com/temp/lf20_vS6iGX.json" background="transparent"
+                        speed="1" style="width: 200px; height: 200px;" loop autoplay>
+                    </lottie-player>
+                </div>
                 <h4 class="welcomeUser" id="welcomeUser"></h4>
                 <br />
-                <h5 class="useMenu">Skorzystaj z menu po lewej stronie, aby:</h5>
+                <h5 class="useMenu" style="margin-top: 0px;">Skorzystaj z menu po lewej stronie, aby:</h5>
                 <div class="row">
                     <div class="col s6">
                         <div class="promo">
@@ -52,6 +58,7 @@
             </div>
         </main>
         <script src="js/materialize.min.js"></script>
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </body>
 
 </html>
