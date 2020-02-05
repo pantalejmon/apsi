@@ -16,10 +16,20 @@ const getData = () => {
                 `;
                 //tu dodajemy wiersz z pacjentem
                 tableBody.appendChild(row);
+
+                row.addEventListener('click', () => {
+                    modalEl.setAttribute('data-email', patient.mail);
+                    const modalTitle = document.getElementById("modal-title")
+                    modalTitle.innerText = `Umów wizytę z: ${patient.firstName} ${patient.lastName}`
+
+                    modalInstance.open();
+                })
             })
         });
 
 }
+const modalEl = document.getElementById('register-appointment-modal');
+const modalInstance = M.Modal.init(modalEl);
 
 getData();
 
