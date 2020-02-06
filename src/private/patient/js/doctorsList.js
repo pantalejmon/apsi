@@ -19,9 +19,11 @@ const getData = () => {
             })
         });
 
+        getData();
+
 }
 
-getData();
+
 
 function chooseProtocol() {
     return window.location.host.includes("localhost") ? "http://" : "https://"

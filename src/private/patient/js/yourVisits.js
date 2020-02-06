@@ -7,7 +7,7 @@ const getData = () => {
                 row = document.createElement("tr");
                 row.setAttribute('id', `${visit.contact}`);
 
-                var date = new Date(visit.startDate * 1000);
+                let date = new Date(visit.startDate * 1000);
 
                 row.innerHTML = `
                     <td>${visit.doctor.firstName + " " + visit.doctor.lastName}</td>
