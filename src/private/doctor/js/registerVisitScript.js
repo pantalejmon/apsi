@@ -44,7 +44,7 @@ function registerAppointment(user) {
         submittedData.duration = 7200;
     } else submittedData.duration = 0;
 
-    // Doctor email
+    // Patient email
     const userEmail = document.getElementById("register-appointment-modal")
         .getAttribute('data-email');
 
