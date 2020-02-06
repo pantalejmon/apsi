@@ -44,7 +44,6 @@ function registerFormInit() {
  * false - lekarz
  */
 function showPatient(status) {
-    console.log("status: " + status);
     let peselPanel = document.getElementById("pesel-panel");
     let dataUrodzeniaPanel = document.getElementById("date-of-birth-panel");
     let specjalizacjaPanel = document.getElementById("specialization-panel");
@@ -72,12 +71,10 @@ function register() {
     submittedData.password = document.getElementById("password").value;
 
     if (document.getElementById("radio-patient").checked) {
-        console.log("Pacjent");
         submittedData.role = "PATIENT"
         submittedData.citizenId = document.getElementById("pesel").value;
         submittedData.dateOfBirth = convertDateToTimestamp(document.getElementById("date-of-birth").value);
     } else if (document.getElementById("radio-doctor").checked) {
-        console.log("Lekarz");
         submittedData.role = "DOCTOR"
         submittedData.specialization = document.getElementById("specialization").value.trim();
     } else {
