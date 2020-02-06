@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('first-name').value = text;
         document.getElementById('email').value = user.mail;
         document.getElementById('phone-number').value = user.phoneNumber;
-        document.getElementById('specialization').value = user.citizenId;
+        document.getElementById('specialization').value = user.specialization;
     }
 
 });
