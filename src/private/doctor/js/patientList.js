@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', function() {
+    getData();
+});
+
 const getData = () => {
     fetch(chooseProtocol() + window.location.host + "/api/patient/list")
         .then(resp => resp.json())
@@ -20,8 +24,6 @@ const getData = () => {
         });
 
 }
-
-getData();
 
 function chooseProtocol() {
     return window.location.host.includes("localhost") ? "http://" : "https://"

@@ -31,7 +31,7 @@ function chooseProtocol() {
 function getDateFromTimestamp(timestamp) {
     let jsDate = new Date(timestamp * 1000);
     let jsMonth = ('0' + (jsDate.getMonth() + 1)).slice(-2);
-    let jsDay = ('0' + (jsDate.getDate() + 1)).slice(-2);
+    let jsDay = ('0' + jsDate.getDate()).slice(-2);
     let date = jsDate.getFullYear() + '-' + jsMonth + '-' + jsDay;
     return date;
 }

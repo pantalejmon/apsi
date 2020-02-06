@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', function() {
+    getData();
+});
+
 const getData = () => {
     fetch(chooseProtocol() + window.location.host + "/api/doctor/list")
         .then(resp => resp.json())
@@ -14,16 +18,11 @@ const getData = () => {
                     <td>${doctor.mail}</td>
                     <td>${doctor.phoneNumber}</td>
                 `;
-                //tu dodajemy wiersz z pacjentem
                 tableBody.appendChild(row);
             })
         });
 
-        getData();
-
 }
-
-
 
 function chooseProtocol() {
     return window.location.host.includes("localhost") ? "http://" : "https://"
