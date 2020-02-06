@@ -24,7 +24,6 @@ function login() {
         window.location.host + "/api/login", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function() {
-        console.log("cos doszlo");
         if (this.status === 200) {
             const response = JSON.parse(this.responseText)
             if (response.error) {

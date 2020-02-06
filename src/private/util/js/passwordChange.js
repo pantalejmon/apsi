@@ -23,16 +23,13 @@ function changePass() {
 
     const message = {};
     message.pass = pass1;
-    console.log(message);
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", chooseProtocol() + window.location.host + "/api/passchange", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function () {
-        console.log("cos doszlo");
         if (this.status === 200) {
             const response = JSON.parse(this.responseText);
-            console.log(response);
             if (response.error) {
                 alert(response.error);
             } else {

@@ -34,7 +34,6 @@ function changeActiveMenuItem(str) {
 function registerSW() {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js").then(function () {
-      console.log("Service Worker Registered");
     });
   }
 }

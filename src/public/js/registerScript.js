@@ -78,10 +78,8 @@ function register() {
         submittedData.role = "DOCTOR"
         submittedData.specialization = document.getElementById("specialization").value.trim();
     } else {
-        console.log("brak roli");
     }
 
-    console.log(submittedData);
     if (!validateFormInput(submittedData)) {
         // Data is not valid, don't send it
         return;
@@ -94,14 +92,12 @@ function register() {
     xhr.addEventListener('load', function () {
         if (this.status === 200) {
             const response = JSON.parse(this.responseText);
-            console.log(response);
             // Show message to user, after user clicks 'OK', redirecting to login screen
             alert(response.message);
             top.location.replace("http://" + window.location.host + "/login.html");
 
         } else if (this.status === 400) {
             const response = JSON.parse(this.responseText);
-            console.log(response);
             // Sent data was wrong, show message to user
             alert(response.error);
         }
