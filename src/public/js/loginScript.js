@@ -24,13 +24,10 @@ function login() {
         window.location.host + "/api/login", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.addEventListener('load', function() {
-        console.log("cos doszlo");
         if (this.status === 200) {
             const response = JSON.parse(this.responseText)
-            console.log(response);
             if (response.error) {
                 alert("Niepoprawne dane logowania!")
-
                 // Tutaj musi być działanie dotyczące nie poprawnego logowania, jakiś komunikat
             }
             if (response.token) {

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>System elektronicznej rejestracji pacjentów</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+
+<body>
+    <header>
+
+        <!-- OSTRZEŻENIE O BRAKU SKRYPTÓW -->
+        <noscript>
+            <div>
+                W celu obsługi aplikacji włącz obsługe skryptów
+            </div>
+        </noscript>
+    </header>
+    <div class="col card hoverable s10 pull-s1 m8 pull-m2 l8 pull-l2"
+        style="padding:16px; margin: 24px 24px 4px 24px; ">
+        <h4 class="center" style="padding: 12px 24px 32px 24px;">Twoje Wizyty:</h4>
+    
+        <div>
+            <table class="centered highlight">
+                <thead>
+                    <tr>
+                        <th><i class="material-icons prefix">account_circle</i> &nbsp; Lekarz</th>
+                        <th> <i class="material-icons prefix">event</i>&nbsp; Data</th>
+                        <th><i class="material-icons prefix">access_time</i> &nbsp; Czas rozpoczęcia </th>
+                    </tr>
+                </thead>
+    
+                <tbody id="visits-list-table">
+                </tbody>
+            </table>
+    
+        </div>
+
+    </div>
+    <script src="js/yourVisits.js"></script>
+</body>
+
+</html>

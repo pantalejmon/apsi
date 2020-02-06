@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', function() {
+    getData();
+});
+
 const getData = () => {
     fetch(chooseProtocol() + window.location.host + "/api/patient/list")
         .then(resp => resp.json())
@@ -30,8 +34,6 @@ const getData = () => {
 }
 const modalEl = document.getElementById('register-appointment-modal');
 const modalInstance = M.Modal.init(modalEl);
-
-getData();
 
 function chooseProtocol() {
     return window.location.host.includes("localhost") ? "http://" : "https://"
