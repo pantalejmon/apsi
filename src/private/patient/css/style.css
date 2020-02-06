@@ -51,9 +51,6 @@ header {
 
 } 
 
-
-
-
 .tabs .tab a:hover {
   background-color:#64b5f6;
 } /*Text color on hover*/
@@ -83,11 +80,6 @@ header {
   padding: 0;
 }
 
-.link-to-profile {
-  font-size: 12px;
-
-}
-
 .useMenu{
   text-align: left;
 }
@@ -103,3 +95,7 @@ header {
 .row .col.s6 {
   width: 5%;
 } 
+
+.linkToPatientProfile{
+  max-width: 250px;
+}

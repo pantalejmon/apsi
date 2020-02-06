@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
     apiRequest.onload = () => {
         // get JSON response
         const user = apiRequest.response;
-        console.log(user);
 
         // log details
         let text = user.firstName + " " + user.lastName;

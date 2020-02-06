@@ -82,3 +82,7 @@ header {
 .table-navigation a {
     cursor: pointer;
 }
+
+.main, .header {
+    padding: 0;
+  }
