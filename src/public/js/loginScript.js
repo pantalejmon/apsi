@@ -27,7 +27,6 @@ function login() {
         console.log("cos doszlo");
         if (this.status === 200) {
             const response = JSON.parse(this.responseText)
-            console.log(response);
             if (response.error) {
                 alert("Niepoprawne dane logowania!")
 
