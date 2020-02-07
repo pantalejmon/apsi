@@ -42,7 +42,39 @@
             </table>
         </div>
     </div>
+    <div id="register-appointment-modal" class="modal">
+        <div class="modal-content">
+            <h4 class="center" id="modal-title" style="padding: 0 24px 32px 24px;"></h4>
+            <div class="input-field col col s12 m6 l6">
+                <i class="material-icons prefix">event</i>
+                <input id="appointment-date" type="text" class="datepicker">
+                <label for="appointment-date">Data wizyty</label>
+            </div>
+            <div class="input-field col col s12 m6 l6">
+                <i class="material-icons prefix">access_time</i>
+                <input id="appointment-time" type="text" class="timepicker">
+                <label for="appointment-time">Czas rozpoczęcia wizyty</label>
+            </div>
+            <div class="input-field col col s12 m6 l6">
+                <select id="select-duration">
+                        <option value="" disabled selected>Wybierz czas trwania</option>
+                        <option value="1">1 godzina</option>
+                        <option value="2">2 godziny</option>
+                    </select>
+                <label>Czas trwania wizyty</label>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="#!" id="modal-close-button" class="modal-close waves-effect waves-green btn-flat">
+                Anuluj
+            </a>
+            <button class="waves-effect waves-light btn center-align col s12 m8 push-m2 l8 push-l2 waves-light blue" onclick="registerAppointment()">Zarejestruj wizytę</button>
+        </div>
+    </div>
+    <script src="js/materialize.min.js"></script>
     <script src="js/patientList.js"></script>
+    <script src="js/registerVisitScript.js"></script>
 </body>
 
 </html>
